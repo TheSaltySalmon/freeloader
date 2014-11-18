@@ -1,7 +1,7 @@
 freehauler
 ==========
 The year is 2092. Russians have taken over the world.
-The world blew up in bits after the russions won by using most of their nuclear arsenal. President  is now the world leader
+The world blew up in bits after the russions won by using most of their nuclear arsenal. President is now the world leader
 
 Now people have fled the wastelands and live scattered across space and pieces of our planet that float around space.
 
