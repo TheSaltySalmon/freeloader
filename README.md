@@ -29,4 +29,4 @@ He tries his best to help those who are left and trying to make a living.
 
 ### Temporary "Long term goals":
 
-* Buy prostitutes or run a whorehouse to gain a 'badboy' reputation and wealth.
+* Buy prostitutes or run a whorehouse to gain a pimp reputation and wealth.
