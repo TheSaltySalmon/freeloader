@@ -11,7 +11,7 @@ Earning wealth, honor, new ships, and a crew as you go off fighting injustice an
 
 
 
-The furious viking, Olaf, came from another dimension. He left his dying homeworld Midgard bringing only his pet, 
+The furious viking, Olaf, came from another dimension. He left his dying home world Midgard bringing only his pet, 
 the insulting messenger squirrel Ratatoskr. Olaf did not like the russians more than whats left of the people of our lost planet. 
 He tries his best to help those who are left and trying to make a living.
 
@@ -29,4 +29,4 @@ He tries his best to help those who are left and trying to make a living.
 
 ### Temporary "Long term goals":
 
-* Buy prostitutes or run a whorehouse to gain a pimp reputation and wealth.
+* Buy prostitutes or run a whorehouse to gain reputation as a pimp and wealth.
