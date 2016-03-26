@@ -7,3 +7,5 @@ Technology used:
 
 * Node.js
 * Typescript
+* Tslint
+* Websockets
