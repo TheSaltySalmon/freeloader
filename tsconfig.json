@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+      "module": "es2015",
+      "target": "es3",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true
+  },
+  "compileOnSave": true,
+  "exclude": [
+        "node_modules",
+        "src/www"
+    ]
+}

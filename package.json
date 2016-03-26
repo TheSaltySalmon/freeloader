@@ -1,0 +1,31 @@
+{
+  "name": "freeloader",
+  "version": "0.0.1",
+  "description": "A Thrust like game with more to it",
+  "scripts": {
+    "start": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "tslint": "^3.6.0",
+    "tslint-eslint-rules": "^1.1.1",
+    "tslint-microsoft-contrib": "^2.0.2",
+    "typescript": "^1.8.9"
+  },
+  "devDependencies": {
+    "tslint": "^3.6.0",
+    "tslint-eslint-rules": "^1.1.1",
+    "tslint-microsoft-contrib": "^2.0.2",
+    "typescript": "^1.8.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheSaltySalmon/freeloader.git"
+  },
+  "author": "Salty Salmon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheSaltySalmon/freeloader/issues"
+  },
+  "homepage": "https://github.com/TheSaltySalmon/freeloader#readme"
+}
