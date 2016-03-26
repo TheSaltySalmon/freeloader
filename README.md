@@ -7,15 +7,15 @@ This is a game project, aiming to be a simple playable single player game made f
 
 ## Technologies used
 #### Frontend
-pixi.js
-typescript
-websockets
+- pixi.js
+- typescript
+- websockets
 
 #### Backend
-node.js
-typescript
-websockets
-restify
+- node.js
+- typescript
+- websockets
+- restify
 
 ### Some kind of a story
 
