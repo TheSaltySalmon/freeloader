@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/johnnypesola/freeloader.png?label=ready&title=Ready)](https://waffle.io/johnnypesola/freeloader)
 freehauler
 ==========
 The year is 2092. Russians have taken over the world.
