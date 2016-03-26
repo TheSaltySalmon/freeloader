@@ -1,6 +1,22 @@
 [![Stories in Ready](https://badge.waffle.io/johnnypesola/freeloader.png?label=ready&title=Ready)](https://waffle.io/johnnypesola/freeloader)
-freehauler
+freeloader
 ==========
+
+## What is 'freeloader'?
+This is a game project, aiming to be a simple playable single player game made for mobile devices developed in javascript/typescipt.
+
+## Technologies used
+#### Frontend
+pixi.js
+typescript
+websockets
+
+#### Backend
+node.js
+typescript
+websockets
+restify
+
 ### Some kind of a story
 
 The year is 2092. A Great Nation has taken over the world.
