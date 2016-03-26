@@ -1,8 +1,8 @@
 freeloader
 ==========
-In this branch we store all graphic related source files.
+In this branch we store all backend related files.
 
-Software used:
+Technology used:
 
-* Adobe Photoshop
-* Adobe Illustrator
+* Node.js
+* Typescript
