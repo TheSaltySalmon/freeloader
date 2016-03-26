@@ -29,7 +29,7 @@ You are a Freehauler (Freeloader). A pilot mastering the forgotten art of delive
 Earning wealth, honor, new ships, and a crew as you go off fighting injustice and helping the weak who have survived the apocalypse.
 
 
-### Features:
+### Gamespecific features:
 
 * Transport things to the people who need them, earn money and rewards.
 * Do quests and missions.
