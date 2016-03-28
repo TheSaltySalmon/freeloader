@@ -20,7 +20,7 @@
       "spaces"
     ],
     "interface-name": true,
-    "jsdoc-format": true,
+    "jsdoc-format": false,
     "label-position": true,
     "max-line-length": [
       true,
@@ -133,7 +133,6 @@
     "no-unexpected-multiline": 2,
     "no-unreachable": 2,
     "use-isnan": 2,
-    "valid-jsdoc": [1, {"requireReturn": false}],
     "valid-typeof": 0,
     "no-eval": 2,
     "radix": 0,
@@ -142,7 +141,7 @@
     "export-name": true,
     "use-isnan": true,
     "jquery-deferred-must-complete": true,
-    "missing-jsdoc": true,
+    "missing-jsdoc": false,
     "missing-optional-annotation": true,
     "mocha-avoid-only": true,
     "no-backbone-get-set-outside-model": true,
