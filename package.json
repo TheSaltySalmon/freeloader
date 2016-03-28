@@ -3,16 +3,18 @@
   "version": "0.0.1",
   "description": "A Thrust like game with more to it",
   "scripts": {
-    "start": "",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "node-mysql-wrapper": "^2.9.3",
     "tslint": "^3.6.0",
     "tslint-eslint-rules": "^1.1.1",
     "tslint-microsoft-contrib": "^2.0.2",
     "typescript": "^1.8.9"
   },
   "devDependencies": {
+    "node-mysql-wrapper": "^2.9.3",
     "tslint": "^3.6.0",
     "tslint-eslint-rules": "^1.1.1",
     "tslint-microsoft-contrib": "^2.0.2",
