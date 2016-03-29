@@ -1,29 +1,30 @@
-/// <reference path="../interface/ExtDb.ts"/>
-/// <reference path="../../../definitely_typed/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
+/// <reference path="../interface/IExtDb.ts"/>
+/// <reference path="./MysqlCfg.ts"/>
+/// <reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
 
+import {IExtDb, IQuery} from '../interface/IExtDb';
+import {MysqlCfg} from './MysqlCfg';
 import * as mysql from 'node-mysql-wrapper';
-import {ExtDb, ICredentials, IQuery} from '../interface/ExtDb';
 
 /**
   Mysql adapter to connect and query a MySQL database
   */
-export class Mysql extends ExtDb {
+export class Mysql implements IExtDb {
 
-    private db: NodeMysqlWrapper.Database;
+    private db: mysql.Database;
 
     /**
-      Create and open a MySQL adapter connection
-      @param {string} host - The host name or IP address to connect to.
-      @param {number} port - The port number to use when connecting.
-      @param {ICredentials} credentials - The credentials data to use for authentication.
+      Create and open a MySQL adapter connection using
+      the configuration file mysql.json
       */
-    public constructor (host: string, port: number, credentials: ICredentials, db: string) {
+    public constructor () {
 
-        super(host, port, credentials, db);
+        let mysqlCfg = new MysqlCfg('mysql.json');
+        let cfg = mysqlCfg.getCfg();
 
-        let connStr = 'mysql://' + this.credentials.user + ':' +
-            this.credentials.password + '@' + this.host +
-            '/' + this.dbName + '?debug=false&charset=utf8';
+        let connStr = 'mysql://' + cfg.user + ':' +
+            cfg.password + '@' + cfg.hostname +
+            '/' + cfg.dbname + '?debug=false&charset=utf8';
 
         this.db = mysql.wrap(connStr);
         if (this.db === undefined) {

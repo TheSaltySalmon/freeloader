@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "nconf": "^0.8.4",
     "node-mysql-wrapper": "^2.9.3",
     "tslint": "^3.6.0",
     "tslint-eslint-rules": "^1.1.1",
@@ -14,6 +15,7 @@
     "typescript": "^1.8.9"
   },
   "devDependencies": {
+    "nconf": "^0.8.4",
     "node-mysql-wrapper": "^2.9.3",
     "tslint": "^3.6.0",
     "tslint-eslint-rules": "^1.1.1",

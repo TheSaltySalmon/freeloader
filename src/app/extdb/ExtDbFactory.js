@@ -1,4 +1,4 @@
-/// <reference path="interface/ExtDb.ts"/>
+/// <reference path="interface/IExtDb.ts"/>
 /// <reference path="impl/Mysql.ts"/>
 "use strict";
 var Mysql_1 = require('./impl/Mysql');
@@ -9,14 +9,14 @@ var ExtDbType = exports.ExtDbType;
 var ExtDbFactory = (function () {
     function ExtDbFactory() {
     }
-    ExtDbFactory.prototype.create = function (extDbType, params) {
+    ExtDbFactory.prototype.create = function (extDbType) {
         var obj = undefined;
         switch (extDbType) {
             case ExtDbType.E_MYSQL:
-                obj = new Mysql_1.Mysql(params.host, params.port, params.credentials, params.dbName);
+                obj = new Mysql_1.Mysql();
                 break;
             default:
-                obj = new Mysql_1.Mysql(params.host, params.port, params.credentials, params.dbName);
+                obj = new Mysql_1.Mysql();
         }
         return obj;
     };

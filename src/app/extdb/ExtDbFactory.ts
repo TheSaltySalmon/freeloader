@@ -1,32 +1,25 @@
-/// <reference path="interface/ExtDb.ts"/>
+/// <reference path="interface/IExtDb.ts"/>
 /// <reference path="impl/Mysql.ts"/>
 
-import {ExtDb, ICredentials} from './interface/ExtDb';
+import {IExtDb} from './interface/IExtDb';
 import {Mysql} from './impl/Mysql';
 
 export enum ExtDbType {
     E_MYSQL
 }
 
-export interface IExtDbParams {
-    dbName: string;
-    host: string;
-    port: number;
-    credentials: ICredentials;
-}
-
 export class ExtDbFactory {
 
-    public create (extDbType: ExtDbType, params: IExtDbParams): ExtDb {
+    public create (extDbType: ExtDbType): IExtDb {
 
         let obj = undefined;
         switch (extDbType) {
 
             case ExtDbType.E_MYSQL:
-                obj = new Mysql(params.host, params.port, params.credentials, params.dbName);
+                obj = new Mysql();
                 break;
             default:
-                obj = new Mysql(params.host, params.port, params.credentials, params.dbName);
+                obj = new Mysql();
         }
         return obj;
     }
