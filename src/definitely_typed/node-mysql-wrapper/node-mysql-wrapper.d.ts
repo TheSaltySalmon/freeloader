@@ -34,7 +34,7 @@ declare module "node-mysql-wrapper" {
 
     // export function observable<T>(obj: T): T & NodeMysqlWrapper.ObservableObject;
 
-    export default NodeMysqlWrapper;
+    export = NodeMysqlWrapper;
 
 }
 

@@ -3,7 +3,8 @@
 */
 "use strict";
 var ExtDb = (function () {
-    function ExtDb(host, port, credentials) {
+    function ExtDb(host, port, credentials, dbName) {
+        this.dbName = dbName;
         this.host = host;
         this.port = port;
         this.credentials = {

@@ -9,6 +9,7 @@ export enum ExtDbType {
 }
 
 export interface IExtDbParams {
+    dbName: string;
     host: string;
     port: number;
     credentials: ICredentials;
@@ -22,10 +23,10 @@ export class ExtDbFactory {
         switch (extDbType) {
 
             case ExtDbType.E_MYSQL:
-                obj = new Mysql(params.host, params.port, params.credentials);
+                obj = new Mysql(params.host, params.port, params.credentials, params.dbName);
                 break;
             default:
-                obj = new Mysql(params.host, params.port, params.credentials);
+                obj = new Mysql(params.host, params.port, params.credentials, params.dbName);
         }
         return obj;
     }

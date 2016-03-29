@@ -14,11 +14,13 @@ export interface IQuery {
 
 export abstract class ExtDb {
 
+    protected dbName: string;
     protected host: string;
     protected port: number;
     protected credentials: ICredentials;
 
-    constructor (host: string, port: number, credentials: ICredentials) {
+    constructor (host: string, port: number, credentials: ICredentials, dbName: string) {
+        this.dbName = dbName;
         this.host = host;
         this.port = port;
         this.credentials = {

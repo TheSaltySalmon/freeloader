@@ -13,10 +13,10 @@ var ExtDbFactory = (function () {
         var obj = undefined;
         switch (extDbType) {
             case ExtDbType.E_MYSQL:
-                obj = new Mysql_1.Mysql(params.host, params.port, params.credentials);
+                obj = new Mysql_1.Mysql(params.host, params.port, params.credentials, params.dbName);
                 break;
             default:
-                obj = new Mysql_1.Mysql(params.host, params.port, params.credentials);
+                obj = new Mysql_1.Mysql(params.host, params.port, params.credentials, params.dbName);
         }
         return obj;
     };

@@ -6,7 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var node_mysql_wrapper_1 = require('node-mysql-wrapper');
+var mysql = require('node-mysql-wrapper');
 var ExtDb_1 = require('../interface/ExtDb');
 /**
   Mysql adapter to connect and query a MySQL database
@@ -19,11 +19,15 @@ var Mysql = (function (_super) {
       @param {number} port - The port number to use when connecting.
       @param {ICredentials} credentials - The credentials data to use for authentication.
       */
-    function Mysql(host, port, credentials) {
-        _super.call(this, host, port, credentials);
+    function Mysql(host, port, credentials, db) {
+        _super.call(this, host, port, credentials, db);
         var connStr = 'mysql://' + this.credentials.user + ':' +
-            this.credentials.password + '@' + this.host;
-        this.db = node_mysql_wrapper_1["default"].wrap(connStr);
+            this.credentials.password + '@' + this.host +
+            '/' + this.dbName + '?debug=false&charset=utf8';
+        this.db = mysql.wrap(connStr);
+        if (this.db === undefined) {
+            throw new Error('Failed to connect to ' + connStr);
+        }
         return this;
     }
     /**
@@ -45,6 +49,9 @@ var Mysql = (function (_super) {
         this.db.query(query.sql, callback, params);
         return true;
     };
+    /**
+      Returns true when the MySQL connection is ready to accept queries.
+     */
     Mysql.prototype.isReady = function () {
         return this.db.isReady;
     };
