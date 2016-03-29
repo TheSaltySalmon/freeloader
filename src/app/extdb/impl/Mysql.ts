@@ -1,20 +1,60 @@
-import { ICredentials, IQuery, ExtDb } from '../interface/ExtDb';
-import { wrap } from "node-mysql-wrapper";
-class Mysql extends ExtDb
-{
-    mysql: any;
+/// <reference path="../interface/ExtDb.ts"/>
+/// <reference path="../../../definitely_typed/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
 
-    new (host: string, port: number, credentials: ICredentials): Mysql
-    {
-        super.new(host, port, credentials);
+import mysql from 'node-mysql-wrapper';
+import {ExtDb, ICredentials, IQuery} from '../interface/ExtDb';
 
-        this.mysql = wrap(connection);
-        
+/**
+  Mysql adapter to connect and query a MySQL database
+  */
+export class Mysql extends ExtDb {
+
+    private db: NodeMysqlWrapper.Database;
+
+    /**
+      Create and open a MySQL adapter connection
+      @param {string} host - The host name or IP address to connect to.
+      @param {number} port - The port number to use when connecting.
+      @param {ICredentials} credentials - The credentials data to use for authentication.
+      */
+    public constructor (host: string, port: number, credentials: ICredentials) {
+
+        super(host, port, credentials);
+
+        let connStr = 'mysql://' + this.credentials.user + ':' +
+            this.credentials.password + '@' + this.host;
+
+        this.db = mysql.wrap(connStr);
+
         return this;
     }
 
-    sendQuery (query: IQuery)
-    {
+    /**
+      Destroy the MySQL adapter connection
+      */
+    public destroy() {
+        this.db.destroy();
+    }
+
+    /**
+      Queries the MySQL database using the specified query and parameters.
+      @param {IQuery} query - The SQL query to send (? is used as a parameter placeholder). 
+      @param {any} callback - The callback function to call when query response is received. 
+      @param {any[]} params - The parameter list for the query parameter placeholders. 
+     */
+    public sendQuery (query: IQuery, callback: any, params: any[]): boolean {
+
+        if (this.isReady() !== false) {
+            return false;
+        }
+
+        this.db.query(query.sql, callback, params);
+
+        return true;
+    }
+
+    private isReady(): boolean {
+        return this.db.isReady;
     }
 
 }
