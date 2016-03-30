@@ -1,8 +1,8 @@
 /// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="./MysqlCfg.ts"/>
+/// <reference path="../DatabaseConfig.ts"/>
 /// <reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
 "use strict";
-var MysqlCfg_1 = require('./MysqlCfg');
+var DatabaseConfig_1 = require('../DatabaseConfig');
 var mysql = require('node-mysql-wrapper');
 /**
   Mysql adapter to connect and query a MySQL database
@@ -13,8 +13,8 @@ var Mysql = (function () {
       the configuration file mysql.json
       */
     function Mysql() {
-        var mysqlCfg = new MysqlCfg_1.MysqlCfg('mysql.json');
-        var cfg = mysqlCfg.getCfg();
+        var mysqlCfg = new DatabaseConfig_1.DatabaseConfig('db.json');
+        var cfg = mysqlCfg.getConfig();
         var connStr = 'mysql://' + cfg.user + ':' +
             cfg.password + '@' + cfg.hostname +
             '/' + cfg.dbname + '?debug=false&charset=utf8';

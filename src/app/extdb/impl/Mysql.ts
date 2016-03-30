@@ -1,9 +1,9 @@
 /// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="./MysqlCfg.ts"/>
+/// <reference path="../DatabaseConfig.ts"/>
 /// <reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
 
 import {IExtDb, IQuery} from '../interface/IExtDb';
-import {MysqlCfg} from './MysqlCfg';
+import {DatabaseConfig} from '../DatabaseConfig';
 import * as mysql from 'node-mysql-wrapper';
 
 /**
@@ -19,8 +19,8 @@ export class Mysql implements IExtDb {
       */
     public constructor () {
 
-        let mysqlCfg = new MysqlCfg('mysql.json');
-        let cfg = mysqlCfg.getCfg();
+        let mysqlCfg = new DatabaseConfig('db.json');
+        let cfg = mysqlCfg.getConfig();
 
         let connStr = 'mysql://' + cfg.user + ':' +
             cfg.password + '@' + cfg.hostname +

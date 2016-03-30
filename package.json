@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "crypto-js": "^3.1.6",
     "nconf": "^0.8.4",
     "node-mysql-wrapper": "^2.9.3",
     "tslint": "^3.6.0",
@@ -15,8 +16,10 @@
     "typescript": "^1.8.9"
   },
   "devDependencies": {
+    "crypto-js": "^3.1.6",
     "nconf": "^0.8.4",
     "node-mysql-wrapper": "^2.9.3",
+    "process": "^0.11.2",
     "tslint": "^3.6.0",
     "tslint-eslint-rules": "^1.1.1",
     "tslint-microsoft-contrib": "^2.0.2",
