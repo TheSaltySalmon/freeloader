@@ -1,15 +1,15 @@
-/// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="../ExtDbFactory.ts"/>
+///<reference path="../../interface/IExtDb.ts"/>
+///<reference path="../../ExtDbFactory.ts"/>
 
 // as we can see here, there's no need to import anything related to MySQL.
 // it is specified for the factory as an enum only, and POOF! we have 
 // an ExtDb object that is a mysql database connection :)
 
-import {IExtDb, IQuery, IResult} from '../interface/IExtDb';
-import {ExtDbFactory, ExtDbType} from '../ExtDbFactory';
+import {IExtDb, IQuery, IResult} from '../../interface/IExtDb';
+import {ExtDbFactory, ExtDbType} from '../../ExtDbFactory';
 
 let factory: ExtDbFactory = new ExtDbFactory();
-let db: IExtDb = factory.create(ExtDbType.E_POSTGRESQL);
+let db: IExtDb = factory.create(ExtDbType.E_MYSQL);
 let sql: IQuery = { params: [], sql: 'SELECT * FROM test_table' };
 
 let callback = (results: IResult) => {
@@ -30,6 +30,6 @@ let callback = (results: IResult) => {
 let result: boolean = db.sendQuery(sql, callback, []);
 
 if (result !== true) {
-    throw new Error('Failed in connecting and fetching data from postgresql database!');
+    throw new Error('Failed in connecting and fetching data from mysql database!');
 }
 

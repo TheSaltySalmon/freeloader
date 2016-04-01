@@ -1,7 +1,6 @@
-/// <reference path="../../../typings/nconf/nconf.d.ts"/>
-/// <reference path="../../../typings/cryptojs/cryptojs.d.ts"/>
-/// <reference path="../../../typings/node/node.d.ts"/>
-
+///<reference path="../../../typings/nconf/nconf.d.ts"/>
+///<reference path="../../../typings/cryptojs/cryptojs.d.ts"/>
+///<reference path="../../../typings/node/node.d.ts"/>
 
 import * as nconf from 'nconf';
 import * as crypto from 'crypto-js';

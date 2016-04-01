@@ -1,7 +1,7 @@
-/// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="../DatabaseConfig.ts"/>
-/// <reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
-/// <reference path="./Utils.d.ts"/>
+///<reference path="../interface/IExtDb.ts"/>
+///<reference path="../DatabaseConfig.ts"/>
+///<reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
+///<reference path="./Utils.d.ts"/>
 "use strict";
 var DatabaseConfig_1 = require('../DatabaseConfig');
 var Utils_1 = require('./Utils');

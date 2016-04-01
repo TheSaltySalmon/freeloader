@@ -1,7 +1,7 @@
-/// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="../ExtDbFactory.ts"/>
+///<reference path="../../interface/IExtDb.ts"/>
+///<reference path="../../ExtDbFactory.ts"/>
 "use strict";
-var ExtDbFactory_1 = require('../ExtDbFactory');
+var ExtDbFactory_1 = require('../../ExtDbFactory');
 var factory = new ExtDbFactory_1.ExtDbFactory();
 var db = factory.create(ExtDbFactory_1.ExtDbType.E_POSTGRESQL);
 var sql = { params: [], sql: 'SELECT * FROM test_table' };

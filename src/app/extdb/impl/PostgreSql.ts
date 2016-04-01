@@ -1,6 +1,6 @@
-/// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="../DatabaseConfig.ts"/>
-/// <reference path="../../../../typings/pg/pg.d.ts"/>
+///<reference path="../interface/IExtDb.ts"/>
+///<reference path="../DatabaseConfig.ts"/>
+///<reference path="../../../../typings/pg/pg.d.ts"/>
 
 import {IExtDb, IQuery, IRow} from '../interface/IExtDb';
 import {DatabaseConfig} from '../DatabaseConfig';

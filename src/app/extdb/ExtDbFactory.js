@@ -1,6 +1,6 @@
-/// <reference path="interface/IExtDb.ts"/>
-/// <reference path="impl/Mysql.ts"/>
-/// <reference path="impl/PostgreSql.ts"/>
+///<reference path="interface/IExtDb.ts"/>
+///<reference path="impl/Mysql.ts"/>
+///<reference path="impl/PostgreSql.ts"/>
 "use strict";
 var Mysql_1 = require('./impl/Mysql');
 var PostgreSql_1 = require('./impl/PostgreSql');

@@ -1,7 +1,7 @@
-/// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="../DatabaseConfig.ts"/>
-/// <reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
-/// <reference path="./Utils.d.ts"/>
+///<reference path="../interface/IExtDb.ts"/>
+///<reference path="../DatabaseConfig.ts"/>
+///<reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
+///<reference path="./Utils.d.ts"/>
 
 import {IExtDb, IExtDbCallback, IQuery, IRow} from '../interface/IExtDb';
 import {DatabaseConfig, IDatabaseConfigData} from '../DatabaseConfig';

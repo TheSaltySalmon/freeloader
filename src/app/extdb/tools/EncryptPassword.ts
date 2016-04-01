@@ -1,5 +1,5 @@
-/// <reference path="../../../../typings/cryptojs/cryptojs.d.ts"/>
-/// <reference path="../../../../typings/node/node.d.ts"/>
+///<reference path="../../../../typings/cryptojs/cryptojs.d.ts"/>
+///<reference path="../../../../typings/node/node.d.ts"/>
 
 import * as crypto from 'crypto-js';
 

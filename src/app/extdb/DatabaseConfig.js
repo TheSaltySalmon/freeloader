@@ -1,6 +1,6 @@
-/// <reference path="../../../typings/nconf/nconf.d.ts"/>
-/// <reference path="../../../typings/cryptojs/cryptojs.d.ts"/>
-/// <reference path="../../../typings/node/node.d.ts"/>
+///<reference path="../../../typings/nconf/nconf.d.ts"/>
+///<reference path="../../../typings/cryptojs/cryptojs.d.ts"/>
+///<reference path="../../../typings/node/node.d.ts"/>
 "use strict";
 var nconf = require('nconf');
 var crypto = require('crypto-js');

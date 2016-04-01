@@ -1,6 +1,6 @@
-/// <reference path="../interface/IExtDb.ts"/>
-/// <reference path="../DatabaseConfig.ts"/>
-/// <reference path="../../../../typings/pg/pg.d.ts"/>
+///<reference path="../interface/IExtDb.ts"/>
+///<reference path="../DatabaseConfig.ts"/>
+///<reference path="../../../../typings/pg/pg.d.ts"/>
 "use strict";
 var DatabaseConfig_1 = require('../DatabaseConfig');
 var Utils_1 = require('./Utils');
