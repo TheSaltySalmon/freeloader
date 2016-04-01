@@ -5,3 +5,4 @@
 /// <reference path="nconf/nconf.d.ts" />
 /// <reference path="crypto-js/crypto-js.d.ts" />
 /// <reference path="cryptojs/cryptojs.d.ts" />
+/// <reference path="pg/pg.d.ts" />

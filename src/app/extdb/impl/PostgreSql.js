@@ -1,66 +1,68 @@
 /// <reference path="../interface/IExtDb.ts"/>
 /// <reference path="../DatabaseConfig.ts"/>
-/// <reference path="../../../../typings/node-mysql-wrapper/node-mysql-wrapper.d.ts"/>
-/// <reference path="./Utils.d.ts"/>
+/// <reference path="../../../../typings/pg/pg.d.ts"/>
 "use strict";
 var DatabaseConfig_1 = require('../DatabaseConfig');
 var Utils_1 = require('./Utils');
-var mysql = require('node-mysql-wrapper');
+var pgsql = require('pg');
 /**
-  Mysql adapter to connect and query a MySQL database
+  PostgreSQL adapter to connect and query a PostgreSQL database
   */
-var Mysql = (function () {
+var PostgreSql = (function () {
     /**
       Create and open a MySQL adapter connection using
       the configuration file mysql.json
       */
-    function Mysql() {
-        var mysqlCfg = new DatabaseConfig_1.DatabaseConfig('db.json');
-        var cfg = mysqlCfg.getConfig();
-        var connStr = 'mysql://' + cfg.user + ':' +
-            cfg.password + '@' + cfg.hostname +
-            '/' + cfg.dbname + '?debug=false&charset=utf8';
-        this.oDb = mysql.wrap(connStr);
-        if (this.oDb === undefined) {
-            throw new Error('Failed to connect to ' + connStr);
-        }
+    function PostgreSql() {
+        var pgCfg = new DatabaseConfig_1.DatabaseConfig('db.json');
+        var cfg = pgCfg.getConfig();
+        var connCfg = {
+            database: cfg.dbname,
+            host: cfg.hostname,
+            password: cfg.password,
+            port: cfg.port,
+            user: cfg.user
+        };
         this.bReturnRowAsObject = cfg.returnRowAsObject;
-        this.bDbIsReady = true;
+        this.oDb = new pgsql.Client(connCfg);
+        if (this.oDb === undefined) {
+            throw new Error('Failed to create PostgreSQL client');
+        }
+        this.oDb.connect(function (err) {
+            throw err;
+        });
         return this;
     }
     /**
       Destroy the MySQL adapter connection
       */
-    Mysql.prototype.destroy = function () {
-        this.oDb.destroy();
+    PostgreSql.prototype.destroy = function () {
+        this.oDb.end();
     };
     /**
-      Queries the MySQL database using the specified query and parameters.
+      Queries the PostgreSQL database using the specified query and parameters.
       @param {IQuery} query - The SQL query to send (? is used as a parameter placeholder).
       @param {any} callback - The callback function to call when query response is received.
       @param {any[]} params - The parameter list for the query parameter placeholders.
      */
-    Mysql.prototype.sendQuery = function (query, callback, params) {
-        if (this.isReady() === false) {
-            return false;
-        }
+    PostgreSql.prototype.sendQuery = function (query, callback, params) {
         var obj = this;
-        var mysqlCallback = function (err, results) {
-            if (err !== null) {
+        var pgCallback = function (err, result) {
+            if (err !== undefined) {
                 callback({ error: { cause: err, code: 1 }, result: undefined });
             }
             var conv = new Utils_1.Utils();
-            // map the results
+            // map results
             var rows = [];
             if (obj.returnRowAsObject()) {
-                for (var _i = 0, results_1 = results; _i < results_1.length; _i++) {
-                    var row = results_1[_i];
+                for (var _i = 0, _a = result.rows; _i < _a.length; _i++) {
+                    var row = _a[_i];
                     rows.push({ cells: undefined, tuple: row });
                 }
             }
             else {
-                for (var _a = 0, results_2 = results; _a < results_2.length; _a++) {
-                    var row = results_2[_a];
+                for (var _b = 0, _c = result.rows; _b < _c.length; _b++) {
+                    var row = _c[_b];
                     var cells = [];
                     var rowArray = conv.rowTupleToArray(row);
                     for (var i = 0; i < rowArray.length; i++) {
@@ -72,7 +74,7 @@ var Mysql = (function () {
             }
             callback({ error: undefined, result: rows });
         };
-        this.oDb.query(query.sql, mysqlCallback, params);
+        this.oDb.query(query.sql, params, pgCallback);
         return true;
     };
     /**
@@ -80,15 +82,9 @@ var Mysql = (function () {
       rows as objects instead of an array of attribute value pairs
       {name: value}
      */
-    Mysql.prototype.returnRowAsObject = function () {
+    PostgreSql.prototype.returnRowAsObject = function () {
         return this.bReturnRowAsObject;
     };
-    /**
-      Returns true when the MySQL connection is ready to accept queries.
-     */
-    Mysql.prototype.isReady = function () {
-        return this.bDbIsReady;
-    };
-    return Mysql;
+    return PostgreSql;
 }());
-exports.Mysql = Mysql;
+exports.PostgreSql = PostgreSql;

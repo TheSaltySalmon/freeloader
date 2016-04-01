@@ -1,11 +1,14 @@
 /// <reference path="interface/IExtDb.ts"/>
 /// <reference path="impl/Mysql.ts"/>
+/// <reference path="impl/PostgreSql.ts"/>
 
 import {IExtDb} from './interface/IExtDb';
 import {Mysql} from './impl/Mysql';
+import {PostgreSql} from './impl/PostgreSql';
 
 export enum ExtDbType {
-    E_MYSQL
+    E_MYSQL,
+    E_POSTGRESQL
 }
 
 export class ExtDbFactory {
@@ -17,6 +20,9 @@ export class ExtDbFactory {
 
             case ExtDbType.E_MYSQL:
                 obj = new Mysql();
+                break;
+            case ExtDbType.E_POSTGRESQL:
+                obj = new PostgreSql();
                 break;
             default:
                 obj = new Mysql();
