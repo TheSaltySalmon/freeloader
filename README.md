@@ -19,13 +19,7 @@ This is a game project, aiming to be a simple playable single player game made f
 
 ### Some kind of a story
 
-The year is 2092. A Great Nation has taken over the world.
-The world blew up in bits after the Great Nation won by using most of their nuclear arsenal. President Erbot is now the world leader
-and enforces order as the last remaining military power, controlling the world's economical markets based on trading of salvaged goods.
-
-Now people have fled the wastelands and live scattered across space and pieces of our planet that float around space.
-
-You are a Freehauler (Freeloader). A pilot mastering the forgotten art of delivering stuff to the survivors.
+You are a a pilot mastering the forgotten art of delivering stuff to people. A mailman I suppose.
 Earning wealth, honor, new ships, and a crew as you go off fighting injustice and helping the weak who have survived the apocalypse.
 
 
