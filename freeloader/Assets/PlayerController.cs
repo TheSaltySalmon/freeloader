@@ -118,6 +118,9 @@ public class PlayerController : MonoBehaviour {
 
     private void AccelerateShip(float verticalMovement)
     {
+        // Only accelerate, we dont want the ship to move backwards.
+        if (verticalMovement < 0) verticalMovement = 0; 
+
         rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
     }
 
