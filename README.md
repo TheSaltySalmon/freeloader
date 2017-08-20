@@ -7,7 +7,7 @@ This is a game project, aiming to be a simple playable single player game made f
 
 ## Technologies used
 #### Frontend
-- nunit
+- unity
 
 #### Backend
 - node.js
