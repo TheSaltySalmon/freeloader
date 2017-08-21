@@ -118,7 +118,11 @@ public class PlayerController : MonoBehaviour {
 
     private void AccelerateShip(float verticalMovement)
     {
-        rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
+        // Only accelerate forwards not backwards.
+        if (verticalMovement > 0)
+        {
+            rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
+        }
     }
 
     private void RotateShip(float horizontalMovement)
