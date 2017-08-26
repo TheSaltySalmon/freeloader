@@ -2,7 +2,7 @@
 freeloader
 ==========
 
-## What is 'freeloader'?
+## What is freeloader?
 This is a game project, aiming to be a simple playable single player game made for mobile devices and other platforms developed in unity/c#.
 
 ## Technologies used
@@ -28,3 +28,4 @@ Earning wealth, honor, new ships, and a crew as you go off fighting injustice an
 * Fight evil.
 * Build houses and farms where you grow food and materials.
 * Gather resources used to upgrade your ship and crew.
+
