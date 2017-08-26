@@ -2,7 +2,7 @@
 freeloader
 ==========
 
-## What is freeloader?
+## What is "freeloader"?
 This is a game project, aiming to be a simple playable single player game made for mobile devices and other platforms developed in unity/c#.
 
 ## Technologies used
