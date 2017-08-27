@@ -1,0 +1,102 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerShipMovement : MonoBehaviour {
+
+    public float movementSpeed;
+    public float rotationSpeed;
+    public bool isShipRotationUpgraded;
+
+    private Rigidbody2D rigidBody;
+    
+    #region Properties
+
+    public bool IsPlayerCurrentlyRotationShipLeftByInput
+    {
+        get
+        {
+            return Input.GetKey(KeyCode.LeftArrow);
+        }
+    }
+
+    public bool IsPlayerCurrentlyRotationShipRightByInput
+    {
+        get
+        {
+            return Input.GetKey(KeyCode.RightArrow);
+        }
+    }
+
+    public bool IsPlayerCurrentlyRotatingShipByInput {
+        get {
+            return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
+        }
+    }
+
+    public bool IsPlayerCurrentlyAcceleratingShipByInput
+    {
+        get
+        {
+            return Input.GetKey(KeyCode.UpArrow);
+        }
+    }
+
+    #endregion
+
+	// Initialization
+	void Start () {
+        rigidBody = GetComponent<Rigidbody2D>();
+	}
+	
+	// Called once per frame
+	void Update () {
+		
+	}
+
+    // Called once per frame (Physics)
+    void FixedUpdate()
+    {
+        float horizontalMovement = Input.GetAxis("Horizontal");
+        float verticalMovement = Input.GetAxis("Vertical");
+
+        AccelerateShip(verticalMovement);
+        RotateShip(horizontalMovement);
+    }
+
+    #region Private methods
+
+
+    private void AccelerateShip(float verticalMovement)
+    {
+        // Only accelerate forwards not backwards.
+        if (verticalMovement > 0)
+        {
+            rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
+        }
+    }
+
+    private void RotateShip(float horizontalMovement)
+    {
+        if(isShipRotationUpgraded)
+        {
+            float rotationValue = (horizontalMovement * rotationSpeed) * -1;
+            transform.Rotate(0, 0, rotationValue);
+
+            if (IsPlayerCurrentlyRotatingShipByInput)
+            { 
+                rigidBody.angularVelocity = 0;
+            }
+        }
+        else
+        {
+            float rotationValue = (horizontalMovement * rotationSpeed / 10) * -1;
+            rigidBody.AddTorque(rotationValue);
+        }
+    }
+
+    
+
+    #endregion
+}
+

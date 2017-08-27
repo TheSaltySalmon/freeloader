@@ -9,6 +9,12 @@ public class BackgroundScrollController : MonoBehaviour {
     public float xOffset;
     public float scrollFactor;
 
+    // Use this for initialization
+    void Start()
+    {
+        camera = (FindObjectOfType(typeof(ShipCamera)) as ShipCamera).gameObject;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
