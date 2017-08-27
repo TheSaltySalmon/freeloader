@@ -98,5 +98,39 @@ public class PlayerShipMovement : MonoBehaviour {
     
 
     #endregion
+
+    //class Buff
+    //{
+    //    public void Alter(ChangableGameObject objectToChange){
+    //        objectToChange.Armor -= 1;
+    //    }
+
+    //    public void UnAlter(ChangableGameObject objectToChange){
+    //        objectToChange.Armor += 1;
+    //    }
+    //}
+
+    //class ChangableGameObject
+    //{
+    //    public int Armor = 1;
+    //    private List<Buff> buffList = new List<Buff>();
+
+
+    //    public void AddBuff(Buff buff)
+    //    {
+    //        buff.Alter(this);
+    //        buffList.Add(buff);
+    //    }
+
+    //    public void RemoveBuff(Buff buff)
+    //    {
+    //        buff.UnAlter(this);
+    //        buffList.Remove(buff);
+    //    }
+    //}
 }
+
+
+
+
 
