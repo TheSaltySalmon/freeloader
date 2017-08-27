@@ -19,8 +19,6 @@ public class ShipThrustParticles : MonoBehaviour {
 
         playerShipMovement = GetComponent<PlayerShipMovement>();
 
-        Debug.Log(playerShipMovement == null);
-
         mainThrottleParticleSys = GetParticleSystemByName(MAIN_THROTTLE_PARTICLE_SYSTEM_NAME);
         leftThrottleParticleSys = GetParticleSystemByName(LEFT_THROTTLE_PARTICLE_SYSTEM_NAME);
         rightThrottleParticleSys = GetParticleSystemByName(RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME);
