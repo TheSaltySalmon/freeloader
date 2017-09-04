@@ -3,25 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour {
-
+public class PlayerHealth : MonoBehaviour
+{
     public int StartingHealth = 100;
     public int CurrentHealth;
     public Slider HealthSlider;
 
-    private bool hasExploded = false;
+    private bool _hasExploded = false;
     private Rigidbody2D rigidBody;
+    private GameObject _burningEffect;
 
     #region properties
 
-    public bool IsDamaged {
-        get {
+    public bool IsDamaged
+    {
+        get
+        {
             return CurrentHealth < StartingHealth;
         }
     }
 
-    public bool IsAlive { 
-        get {
+    public bool IsAlive
+    {
+        get
+        {
             return CurrentHealth > 0;
         }
         set
@@ -32,17 +37,31 @@ public class PlayerHealth : MonoBehaviour {
 
     #endregion
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         CurrentHealth = StartingHealth;
         rigidBody = GetComponent<Rigidbody2D>();
+
+        LoadPrefabs();
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {	
-        if (!IsAlive && !hasExploded)
+
+    // Update is called once per frame
+    void Update()
+    {
+        IfDeadHandler();
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // On collision with something, start a coroutine
+        StartCoroutine("OnImpulse");
+    }
+
+    #region Private methods
+
+    private void IfDeadHandler()
+    {
+        if (!IsAlive && !_hasExploded)
         {
             ExplodeShip();
         }
@@ -50,26 +69,35 @@ public class PlayerHealth : MonoBehaviour {
 
     private void ExplodeShip()
     {
+        var spriteRenderer = GetComponent<SpriteRenderer>();
 
+        spriteRenderer.color = new Color(0.58f, 0.10f, 0.10f);
+        _burningEffect.SetActive(true);
+        _hasExploded = true;
+
+        Debug.Log("Exploded ship"); 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+
+    private void LoadPrefabs()
     {
-        Debug.Log("Ship collision. Health = " + CurrentHealth + "| Alive = " + IsAlive);
+        _burningEffect = SceneController.ObjectPool.GetSingle("ParticleSystems/BurningEffect");
+        _burningEffect.transform.parent = transform;
 
-        // On collision with something, start a coroutine
-        StartCoroutine("OnImpulse");
+        var newPosition = new Vector3(transform.position.x / 2, transform.position.y / 2, -5);
+        _burningEffect.transform.position = newPosition;
     }
 
-    private IEnumerator OnImpulse(){
-    
+    private IEnumerator OnImpulse()
+    {
         Vector3 initialVelocity, newVelocity;
-        int minForceToBreak = 1;
 
         //get velocity
         initialVelocity = rigidBody.velocity;
 
-        //wait for new updates, by trial and error, 3 frames seems to get me the correct effect.
+        //wait for new updates, by trial and error.
+        yield return null;
+        yield return null;
         yield return null;
         yield return null;
         yield return null;
@@ -80,19 +108,12 @@ public class PlayerHealth : MonoBehaviour {
         //impulse = magnitude of change
         Vector3 result = initialVelocity - newVelocity;
 
-        Debug.Log ("Impulse taken: " + result.magnitude);
+        Debug.Log("Impulse taken: " + result.magnitude);
 
-        if (result.magnitude > minForceToBreak)
-        {
-            //Destroy(gameObject);
-            IsAlive = false;
-        }
+        CurrentHealth -= (int)(result.magnitude * 20);
 
-        /*
-           * Let me explain. Impulse force on an object is determined by the instantaneous change in velocity. 
-           * which in this case i have estimated by measuring change in velocity over 3 frames as what i have done. 
-           * the reason for 3 frames is by trial and error as it seems to net me the best stable result in my case. 
-           * As sometimes when determined over 1 frame, it kinda misses the computation.
-        */
+        Debug.Log("Ship collision. Health = " + CurrentHealth + "| Alive = " + IsAlive);
     }
+
+    #endregion
 }

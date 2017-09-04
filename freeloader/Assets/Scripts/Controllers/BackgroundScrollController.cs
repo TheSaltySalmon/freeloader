@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackgroundScrollController : MonoBehaviour {
 
-    public GameObject camera;
+    private GameObject playerShip;
     public float yOffset;
     public float xOffset;
     public float scrollFactor;
@@ -12,14 +12,14 @@ public class BackgroundScrollController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        camera = (FindObjectOfType(typeof(ShipCamera)) as ShipCamera).gameObject;
+        playerShip = (FindObjectOfType(typeof(PlayerShipMovement)) as PlayerShipMovement).gameObject;
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
-        float xPos = camera.transform.position.x / scrollFactor + xOffset;
-        float yPos = camera.transform.position.y / scrollFactor + yOffset;
+        float xPos = playerShip.transform.position.x / scrollFactor + xOffset;
+        float yPos = playerShip.transform.position.y / scrollFactor + yOffset;
 
         transform.position = new Vector3(xPos, yPos, transform.position.z);
     }

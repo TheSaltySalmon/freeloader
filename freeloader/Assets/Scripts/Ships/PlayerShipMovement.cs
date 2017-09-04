@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShipMovement : MonoBehaviour {
+public class PlayerShipMovement : MonoBehaviour
+{
 
     public float movementSpeed;
     public float rotationSpeed;
     public bool isShipRotationUpgraded;
 
     private Rigidbody2D rigidBody;
-    
+    private PlayerHealth playerHealth;
+
     #region Properties
 
     public bool IsPlayerCurrentlyRotationShipLeftByInput
     {
         get
         {
+            if (!playerHealth.IsAlive) { return false; }
             return Input.GetKey(KeyCode.LeftArrow);
         }
     }
@@ -24,12 +27,16 @@ public class PlayerShipMovement : MonoBehaviour {
     {
         get
         {
+            if (!playerHealth.IsAlive) { return false; }
             return Input.GetKey(KeyCode.RightArrow);
         }
     }
 
-    public bool IsPlayerCurrentlyRotatingShipByInput {
-        get {
+    public bool IsPlayerCurrentlyRotatingShipByInput
+    {
+        get
+        {
+            if (!playerHealth.IsAlive) { return false; }
             return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
         }
     }
@@ -38,30 +45,46 @@ public class PlayerShipMovement : MonoBehaviour {
     {
         get
         {
+            if (!playerHealth.IsAlive) { return false; }
             return Input.GetKey(KeyCode.UpArrow);
+        }
+    }
+
+    public bool CanShipMove
+    {
+        get
+        {
+            return playerHealth.IsAlive;
         }
     }
 
     #endregion
 
-	// Initialization
-	void Start () {
+    // Initialization
+    void Start()
+    {
         rigidBody = GetComponent<Rigidbody2D>();
-	}
-	
-	// Called once per frame
-	void Update () {
-		
-	}
+        playerHealth = GetComponent<PlayerHealth>();
+
+    }
+
+    // Called once per frame
+    void Update()
+    {
+
+    }
 
     // Called once per frame (Physics)
     void FixedUpdate()
     {
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float verticalMovement = Input.GetAxis("Vertical");
+        if (CanShipMove)
+        {
+            float horizontalMovement = Input.GetAxis("Horizontal");
+            float verticalMovement = Input.GetAxis("Vertical");
 
-        AccelerateShip(verticalMovement);
-        RotateShip(horizontalMovement);
+            AccelerateShip(verticalMovement);
+            RotateShip(horizontalMovement);
+        }
     }
 
     #region Private methods
@@ -78,13 +101,13 @@ public class PlayerShipMovement : MonoBehaviour {
 
     private void RotateShip(float horizontalMovement)
     {
-        if(isShipRotationUpgraded)
+        if (isShipRotationUpgraded)
         {
             float rotationValue = (horizontalMovement * rotationSpeed) * -1;
             transform.Rotate(0, 0, rotationValue);
 
             if (IsPlayerCurrentlyRotatingShipByInput)
-            { 
+            {
                 rigidBody.angularVelocity = 0;
             }
         }
@@ -95,7 +118,7 @@ public class PlayerShipMovement : MonoBehaviour {
         }
     }
 
-    
+
 
     #endregion
 
