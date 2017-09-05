@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShipMovement : MonoBehaviour {
+public class PlayerShipMovement : MonoBehaviour
+{
 
     public float movementSpeed;
     public float rotationSpeed;
     public bool isShipRotationUpgraded;
 
-    private Rigidbody2D rigidBody;
-    
+    private Rigidbody2D _rigidBody;
+    private Health _health;
+
     #region Properties
 
     public bool IsPlayerCurrentlyRotationShipLeftByInput
     {
         get
         {
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.LeftArrow);
         }
     }
@@ -24,12 +27,16 @@ public class PlayerShipMovement : MonoBehaviour {
     {
         get
         {
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.RightArrow);
         }
     }
 
-    public bool IsPlayerCurrentlyRotatingShipByInput {
-        get {
+    public bool IsPlayerCurrentlyRotatingShipByInput
+    {
+        get
+        {
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
         }
     }
@@ -38,64 +45,84 @@ public class PlayerShipMovement : MonoBehaviour {
     {
         get
         {
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.UpArrow);
+        }
+    }
+
+    public bool CanShipMove
+    {
+        get
+        {
+            return _health.IsAlive;
         }
     }
 
     #endregion
 
-	// Initialization
-	void Start () {
-        rigidBody = GetComponent<Rigidbody2D>();
-	}
-	
-	// Called once per frame
-	void Update () {
-		
-	}
+    // Initialization
+    void Start()
+    {
+        GetComponents();
+    }
+
+
+    // Called once per frame
+    void Update()
+    {
+
+    }
 
     // Called once per frame (Physics)
     void FixedUpdate()
     {
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float verticalMovement = Input.GetAxis("Vertical");
+        if (CanShipMove)
+        {
+            float horizontalMovement = Input.GetAxis("Horizontal");
+            float verticalMovement = Input.GetAxis("Vertical");
 
-        AccelerateShip(verticalMovement);
-        RotateShip(horizontalMovement);
+            AccelerateShip(verticalMovement);
+            RotateShip(horizontalMovement);
+        }
     }
 
     #region Private methods
 
+    private void GetComponents()
+    {
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
+    }
 
     private void AccelerateShip(float verticalMovement)
     {
         // Only accelerate forwards not backwards.
         if (verticalMovement > 0)
         {
-            rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
+            _rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
         }
     }
 
     private void RotateShip(float horizontalMovement)
     {
-        if(isShipRotationUpgraded)
+        if (isShipRotationUpgraded)
         {
             float rotationValue = (horizontalMovement * rotationSpeed) * -1;
             transform.Rotate(0, 0, rotationValue);
 
             if (IsPlayerCurrentlyRotatingShipByInput)
-            { 
-                rigidBody.angularVelocity = 0;
+            {
+                _rigidBody.angularVelocity = 0;
             }
         }
         else
         {
             float rotationValue = (horizontalMovement * rotationSpeed / 10) * -1;
-            rigidBody.AddTorque(rotationValue);
+            _rigidBody.AddTorque(rotationValue);
         }
     }
 
-    
+
 
     #endregion
 

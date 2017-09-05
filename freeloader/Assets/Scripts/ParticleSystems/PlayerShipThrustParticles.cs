@@ -2,29 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipThrustParticles : MonoBehaviour {
+public class PlayerShipThrustParticles : MonoBehaviour {
 
     private const string MAIN_THROTTLE_PARTICLE_SYSTEM_NAME = "MainThrottleParticles";
     private const string RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME = "RightThrottleParticles";
     private const string LEFT_THROTTLE_PARTICLE_SYSTEM_NAME = "LeftThrottleParticles";
 
-    private ParticleSystem mainThrottleParticleSys;
-    private ParticleSystem leftThrottleParticleSys;
-    private ParticleSystem rightThrottleParticleSys;
-    private PlayerShipMovement playerShipMovement;
+    private ParticleSystem _mainThrottleParticleSys;
+    private ParticleSystem _leftThrottleParticleSys;
+    private ParticleSystem _rightThrottleParticleSys;
+    private PlayerShipMovement _playerShipMovement;
 
 
 	// Use this for initialization
 	void Start () {
 
-        playerShipMovement = GetComponent<PlayerShipMovement>();
-
-        Debug.Log(playerShipMovement == null);
-
-        mainThrottleParticleSys = GetParticleSystemByName(MAIN_THROTTLE_PARTICLE_SYSTEM_NAME);
-        leftThrottleParticleSys = GetParticleSystemByName(LEFT_THROTTLE_PARTICLE_SYSTEM_NAME);
-        rightThrottleParticleSys = GetParticleSystemByName(RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME);
+        GetComponents();
 	}
+
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -33,10 +28,18 @@ public class ShipThrustParticles : MonoBehaviour {
 
     #region Private Methods
 
-    private ParticleSystem GetParticleSystemByName(string particleSystemName)
+    private void GetComponents()
     {
-        Component[] children = GetComponentsInChildren<ParticleSystem>();
-        foreach (ParticleSystem childParticleSystem in children)
+        _playerShipMovement = GetComponent<PlayerShipMovement>();
+
+        _mainThrottleParticleSys = GetParticleSystemComponentByName(MAIN_THROTTLE_PARTICLE_SYSTEM_NAME);
+        _leftThrottleParticleSys = GetParticleSystemComponentByName(LEFT_THROTTLE_PARTICLE_SYSTEM_NAME);
+        _rightThrottleParticleSys = GetParticleSystemComponentByName(RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME);
+    }
+
+    private ParticleSystem GetParticleSystemComponentByName(string particleSystemName)
+    {
+        foreach (ParticleSystem childParticleSystem in GetComponentsInChildren<ParticleSystem>())
         {
             if (childParticleSystem.name == particleSystemName)
             {
@@ -50,20 +53,20 @@ public class ShipThrustParticles : MonoBehaviour {
     {
         // Main Throttle
         PlayOrStopParticleSystemIfNeeded(
-            playerShipMovement.IsPlayerCurrentlyAcceleratingShipByInput,
-            mainThrottleParticleSys
+            _playerShipMovement.IsPlayerCurrentlyAcceleratingShipByInput,
+            _mainThrottleParticleSys
         );
 
         // Right Throttle
         PlayOrStopParticleSystemIfNeeded(
-            playerShipMovement.IsPlayerCurrentlyRotationShipLeftByInput,
-            rightThrottleParticleSys
+            _playerShipMovement.IsPlayerCurrentlyRotationShipLeftByInput,
+            _rightThrottleParticleSys
         );
 
         // Left Throttle
         PlayOrStopParticleSystemIfNeeded(
-            playerShipMovement.IsPlayerCurrentlyRotationShipRightByInput,
-            leftThrottleParticleSys
+            _playerShipMovement.IsPlayerCurrentlyRotationShipRightByInput,
+            _leftThrottleParticleSys
         );
     }
 
