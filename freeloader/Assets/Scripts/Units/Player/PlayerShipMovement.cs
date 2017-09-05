@@ -9,8 +9,8 @@ public class PlayerShipMovement : MonoBehaviour
     public float rotationSpeed;
     public bool isShipRotationUpgraded;
 
-    private Rigidbody2D rigidBody;
-    private PlayerHealth playerHealth;
+    private Rigidbody2D _rigidBody;
+    private Health _health;
 
     #region Properties
 
@@ -18,7 +18,7 @@ public class PlayerShipMovement : MonoBehaviour
     {
         get
         {
-            if (!playerHealth.IsAlive) { return false; }
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.LeftArrow);
         }
     }
@@ -27,7 +27,7 @@ public class PlayerShipMovement : MonoBehaviour
     {
         get
         {
-            if (!playerHealth.IsAlive) { return false; }
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.RightArrow);
         }
     }
@@ -36,7 +36,7 @@ public class PlayerShipMovement : MonoBehaviour
     {
         get
         {
-            if (!playerHealth.IsAlive) { return false; }
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
         }
     }
@@ -45,7 +45,7 @@ public class PlayerShipMovement : MonoBehaviour
     {
         get
         {
-            if (!playerHealth.IsAlive) { return false; }
+            if (!_health.IsAlive) { return false; }
             return Input.GetKey(KeyCode.UpArrow);
         }
     }
@@ -54,7 +54,7 @@ public class PlayerShipMovement : MonoBehaviour
     {
         get
         {
-            return playerHealth.IsAlive;
+            return _health.IsAlive;
         }
     }
 
@@ -63,10 +63,9 @@ public class PlayerShipMovement : MonoBehaviour
     // Initialization
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody2D>();
-        playerHealth = GetComponent<PlayerHealth>();
-
+        GetComponents();
     }
+
 
     // Called once per frame
     void Update()
@@ -89,13 +88,18 @@ public class PlayerShipMovement : MonoBehaviour
 
     #region Private methods
 
+    private void GetComponents()
+    {
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
+    }
 
     private void AccelerateShip(float verticalMovement)
     {
         // Only accelerate forwards not backwards.
         if (verticalMovement > 0)
         {
-            rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
+            _rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
         }
     }
 
@@ -108,13 +112,13 @@ public class PlayerShipMovement : MonoBehaviour
 
             if (IsPlayerCurrentlyRotatingShipByInput)
             {
-                rigidBody.angularVelocity = 0;
+                _rigidBody.angularVelocity = 0;
             }
         }
         else
         {
             float rotationValue = (horizontalMovement * rotationSpeed / 10) * -1;
-            rigidBody.AddTorque(rotationValue);
+            _rigidBody.AddTorque(rotationValue);
         }
     }
 

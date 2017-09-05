@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundScrollController : MonoBehaviour {
+public class BackgroundScroll : MonoBehaviour {
 
-    private GameObject playerShip;
+    private GameObject _playerShip;
+
     public float yOffset;
     public float xOffset;
     public float scrollFactor;
@@ -12,14 +13,14 @@ public class BackgroundScrollController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        playerShip = (FindObjectOfType(typeof(PlayerShipMovement)) as PlayerShipMovement).gameObject;
+        _playerShip = (FindObjectOfType(typeof(PlayerShipMovement)) as PlayerShipMovement).gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float xPos = playerShip.transform.position.x / scrollFactor + xOffset;
-        float yPos = playerShip.transform.position.y / scrollFactor + yOffset;
+        float xPos = _playerShip.transform.position.x / scrollFactor + xOffset;
+        float yPos = _playerShip.transform.position.y / scrollFactor + yOffset;
 
         transform.position = new Vector3(xPos, yPos, transform.position.z);
     }

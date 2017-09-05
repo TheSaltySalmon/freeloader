@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneController : MonoBehaviour {
+public class Scene : MonoBehaviour {
 
     public static ObjectPoolService ObjectPool;
 

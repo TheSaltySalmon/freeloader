@@ -6,11 +6,11 @@ using System.Linq;
 
 public class ObjectPoolService
 {
-    private Dictionary<string, List<object>> gameObjectPool;
+    private Dictionary<string, List<object>> _gameObjectPool;
 
     public ObjectPoolService()
     {
-        gameObjectPool = new Dictionary<string, List<object>>();
+        _gameObjectPool = new Dictionary<string, List<object>>();
     }
 
     public GameObject GetSingle(string gameObjectName)
@@ -21,17 +21,17 @@ public class ObjectPoolService
     /// <summary>
     /// Get a number of GameObject type instances from a object pool. New instances are generated if needed.
     /// </summary>
-    /// <typeparam name="T">GameObject child class type</typeparam>
-    /// <param name="numberOfObjectsToGet">The number of objects to get or generate</param>
-    /// <returns>List of objects with GameObject as base class</returns>
+    /// <param name="gameObjectName"></param>
+    /// <param name="numberOfObjectsToGet"></param>
+    /// <returns></returns>
     public List<GameObject> Get(string gameObjectName, int numberOfObjectsToGet)
     {
         var returnGameObjectList = new List<GameObject>(numberOfObjectsToGet);
         UnityEngine.Object gameObjectResourceToInstantiate = null;
 
-        if (!gameObjectPool.ContainsKey(gameObjectName))
+        if (!_gameObjectPool.ContainsKey(gameObjectName))
         {
-            gameObjectPool.Add(gameObjectName, new List<object>());
+            _gameObjectPool.Add(gameObjectName, new List<object>());
 
 
             // Load resource, this is expensive on the CPU.
@@ -39,7 +39,7 @@ public class ObjectPoolService
         }
         else
         {
-            foreach (GameObject gameObjectInPool in gameObjectPool[gameObjectName])
+            foreach (GameObject gameObjectInPool in _gameObjectPool[gameObjectName])
             {
                 // If we need more objects then return a game object that is not active in the scene
                 if (returnGameObjectList.Count < numberOfObjectsToGet && !gameObjectInPool.activeInHierarchy)
@@ -58,7 +58,7 @@ public class ObjectPoolService
 
             newGameObject.SetActive(false);
 
-            gameObjectPool[gameObjectName].Add(newGameObject);
+            _gameObjectPool[gameObjectName].Add(newGameObject);
             returnGameObjectList.Add(newGameObject);
         }
 
