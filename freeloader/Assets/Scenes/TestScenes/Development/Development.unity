@@ -253,7 +253,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1587814905
+  randomSeed: -1898333691
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3557,6 +3557,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5989b61eca01e24f88ce690c07310a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _offset: {x: 0, y: 0, z: 0}
 --- !u!1 &274221540
 GameObject:
   m_ObjectHideFlags: 0
@@ -3644,11 +3646,8 @@ GameObject:
   - component: {fileID: 1824660017}
   - component: {fileID: 368459999}
   - component: {fileID: 368459998}
-  - component: {fileID: 368459997}
   - component: {fileID: 368459996}
-  - component: {fileID: 368459995}
   - component: {fileID: 368459994}
-  - component: {fileID: 368460000}
   m_Layer: 0
   m_Name: CourierPlayerShip
   m_TagString: Untagged
@@ -3659,28 +3658,12 @@ GameObject:
 --- !u!114 &368459994
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114623147818780890, guid: 195aa726b3429314380352289157cc45,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 368459993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae692563b0886414db97a1cb5767f4f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartingHealth: 100
-  CurrentHealth: 0
-  HealthSlider: {fileID: 0}
---- !u!114 &368459995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114954143233676434, guid: 195aa726b3429314380352289157cc45,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 368459993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82f8c99c880c7b943b71c4c4be9bb3c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 796f847b97a5e894fa728f081b3e23f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!60 &368459996
@@ -3715,21 +3698,6 @@ PolygonCollider2D:
       - {x: -0.25692877, y: -0.23179106}
       - {x: -0.0033362769, y: -0.18804443}
       - {x: 0.26665336, y: -0.23330657}
---- !u!114 &368459997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114900029252935086, guid: 195aa726b3429314380352289157cc45,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 368459993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f27d93f132e13143bfcb3480436485a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 5
-  rotationSpeed: 2
-  isShipRotationUpgraded: 0
 --- !u!50 &368459998
 Rigidbody2D:
   serializedVersion: 4
@@ -3794,17 +3762,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!114 &368460000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 368459993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46422f153d357544f982b13c209ea3f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &451935711
 Prefab:
   m_ObjectHideFlags: 0
@@ -4029,7 +3986,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1243757306
+  randomSeed: 133883695
   InitialModule:
     serializedVersion: 3
     enabled: 1
