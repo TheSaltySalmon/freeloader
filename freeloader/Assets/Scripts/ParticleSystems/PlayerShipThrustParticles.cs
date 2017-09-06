@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShipThrustParticles : MonoBehaviour {
+public class PlayerShipThrustParticlesService {
 
     private const string MAIN_THROTTLE_PARTICLE_SYSTEM_NAME = "MainThrottleParticles";
     private const string RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME = "RightThrottleParticles";
@@ -11,27 +11,22 @@ public class PlayerShipThrustParticles : MonoBehaviour {
     private ParticleSystem _mainThrottleParticleSys;
     private ParticleSystem _leftThrottleParticleSys;
     private ParticleSystem _rightThrottleParticleSys;
-    private PlayerShipMovement _playerShipMovement;
+    private PlayerShipMovementService _playerShipMovement;
+    private GameObject _playerShip;
 
 
-	// Use this for initialization
-	void Start () {
+    public PlayerShipThrustParticlesService(GameObject playerShip, PlayerShipMovementService playerShipMovement)
+    {
+        _playerShipMovement = playerShipMovement;
+        _playerShip = playerShip;
 
         GetComponents();
-	}
-
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        HandleShipThrottleParticleSystems();
     }
 
     #region Private Methods
 
     private void GetComponents()
     {
-        _playerShipMovement = GetComponent<PlayerShipMovement>();
-
         _mainThrottleParticleSys = GetParticleSystemComponentByName(MAIN_THROTTLE_PARTICLE_SYSTEM_NAME);
         _leftThrottleParticleSys = GetParticleSystemComponentByName(LEFT_THROTTLE_PARTICLE_SYSTEM_NAME);
         _rightThrottleParticleSys = GetParticleSystemComponentByName(RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME);
@@ -39,7 +34,7 @@ public class PlayerShipThrustParticles : MonoBehaviour {
 
     private ParticleSystem GetParticleSystemComponentByName(string particleSystemName)
     {
-        foreach (ParticleSystem childParticleSystem in GetComponentsInChildren<ParticleSystem>())
+        foreach (ParticleSystem childParticleSystem in _playerShip.GetComponentsInChildren<ParticleSystem>())
         {
             if (childParticleSystem.name == particleSystemName)
             {
@@ -49,7 +44,7 @@ public class PlayerShipThrustParticles : MonoBehaviour {
         return null;
     }
 
-    private void HandleShipThrottleParticleSystems()
+    public void HandleShipThrottleParticleSystems()
     {
         // Main Throttle
         PlayOrStopParticleSystemIfNeeded(
