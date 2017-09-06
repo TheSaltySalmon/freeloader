@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShipMovement : MonoBehaviour
+public class PlayerShipMovementService
 {
 
-    public float movementSpeed;
-    public float rotationSpeed;
+    public float movementSpeed = 2.8f;
+    public float rotationSpeed = 1.2f;
     public bool isShipRotationUpgraded;
 
     private Rigidbody2D _rigidBody;
     private Health _health;
+    private Transform _transform;
 
     #region Properties
 
@@ -60,21 +61,16 @@ public class PlayerShipMovement : MonoBehaviour
 
     #endregion
 
-    // Initialization
-    void Start()
+    // Constructor
+    public PlayerShipMovementService(Transform transform, Rigidbody2D rigidBody, Health health)
     {
-        GetComponents();
+        _transform = transform;
+        _rigidBody = rigidBody;
+        _health = health;
     }
 
-
-    // Called once per frame
-    void Update()
-    {
-
-    }
-
-    // Called once per frame (Physics)
-    void FixedUpdate()
+    // Should be called in a "FixedUpdate" (Physics)
+    public void HandleMovement()
     {
         if (CanShipMove)
         {
@@ -88,18 +84,12 @@ public class PlayerShipMovement : MonoBehaviour
 
     #region Private methods
 
-    private void GetComponents()
-    {
-        _rigidBody = GetComponent<Rigidbody2D>();
-        _health = GetComponent<Health>();
-    }
-
     private void AccelerateShip(float verticalMovement)
     {
         // Only accelerate forwards not backwards.
         if (verticalMovement > 0)
         {
-            _rigidBody.AddForce(transform.up * verticalMovement * movementSpeed);
+            _rigidBody.AddForce(_transform.up * verticalMovement * movementSpeed);
         }
     }
 
@@ -108,7 +98,7 @@ public class PlayerShipMovement : MonoBehaviour
         if (isShipRotationUpgraded)
         {
             float rotationValue = (horizontalMovement * rotationSpeed) * -1;
-            transform.Rotate(0, 0, rotationValue);
+            _transform.Rotate(0, 0, rotationValue);
 
             if (IsPlayerCurrentlyRotatingShipByInput)
             {
