@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerShipMovementService
 {
-
     public float movementSpeed = 2.8f;
     public float rotationSpeed = 1.8f;
     public bool isShipRotationUpgraded = true;

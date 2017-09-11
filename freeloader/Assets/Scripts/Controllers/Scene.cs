@@ -8,9 +8,7 @@ public class Scene : MonoBehaviour  {
     public static EventManagerService Events;
     public static PlayerController Player;
     public static UIController UI;
-    public float SceneGravity = 0.02f;
-    private HealthBar _healthBar;
-
+    public const float SceneGravity = 0.02f;
 
 	// Use this for initialization
 	void Awake () {
