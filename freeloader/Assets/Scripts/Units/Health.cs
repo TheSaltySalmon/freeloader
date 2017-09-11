@@ -49,6 +49,8 @@ public class Health : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         CurrentHealth = StartingHealth;
+
+        TriggerHealthGainedEvent(StartingHealth);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -85,14 +87,29 @@ public class Health : MonoBehaviour
         TriggerHealthLostEvent(healthLost);
     }
 
+    private void TriggerHealthGainedEvent(int healthGained)
+    {
+        Scene.Events.TriggerEvent(
+            AvailableEvents.PLAYER_LOST_HEALTH,
+            new EventDataModels.Health
+            {
+                MaxHealth = MaxHealth,
+                CurrentHealth = CurrentHealth,
+                HealthAmount = healthGained,
+                Effect = EffectType.Gained
+            }
+        );
+    }
+
     private void TriggerHealthLostEvent(int healthLost)
     {
         Scene.Events.TriggerEvent(
             AvailableEvents.PLAYER_LOST_HEALTH,
             new EventDataModels.Health
             {
+                MaxHealth = MaxHealth,
                 CurrentHealth = CurrentHealth,
-                HealthAmmount = healthLost,
+                HealthAmount = healthLost,
                 Effect = EffectType.Lost
             }
         );

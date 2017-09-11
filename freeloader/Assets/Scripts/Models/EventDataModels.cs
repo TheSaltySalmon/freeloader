@@ -14,10 +14,9 @@ namespace EventDataModels
 
     public class Health
     {
+        public int MaxHealth { get; set; }
         public int CurrentHealth { get; set; }
-
-        public int HealthAmmount { get; set; }
-
+        public int HealthAmount { get; set; }
         public EffectType Effect { get; set; }
     }
 }
