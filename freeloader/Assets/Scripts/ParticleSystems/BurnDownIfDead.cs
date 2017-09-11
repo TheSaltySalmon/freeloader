@@ -50,7 +50,7 @@ public class BurnDownIfDead : MonoBehaviour
 
     private void LoadResourceAndSetup()
     {
-        _burningEffect = SceneController.ObjectPool.GetSingle(RESOURCE_BURNING_EFFECT);
+        _burningEffect = Scene.ObjectPool.GetSingle(RESOURCE_BURNING_EFFECT);
         _burningEffect.transform.parent = transform;
         _burningEffect.transform.position = INITIAL_BURNING_EFFECT_POSITION;
 

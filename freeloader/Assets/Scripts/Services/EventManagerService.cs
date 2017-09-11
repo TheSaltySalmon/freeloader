@@ -11,16 +11,16 @@ public enum AvailableEvents {
 
 public class EventManagerService {
 
-    private Dictionary<string, UnityEvent> _eventDictionary;
+    private Dictionary<string, UnityEvent<object>> _eventDictionary;
 
     public EventManagerService()
     {
-        _eventDictionary = new Dictionary<string, UnityEvent>();
+        _eventDictionary = new Dictionary<string, UnityEvent<object>>();
     }
 
-    public void StartListening(string eventName, UnityAction listener, string objectId = "")
+    public void StartListening(AvailableEvents eventName, UnityAction<object> listener, string objectId = "")
     {
-        UnityEvent thisEvent = null;
+        UnityEvent<object> thisEvent = null;
         string eventNameIWithObjectId = objectId + eventName;
 
         if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
@@ -29,13 +29,13 @@ public class EventManagerService {
         }
         else
         {
-            thisEvent = CreateNewEvent(eventName, listener, thisEvent);
+            thisEvent = CreateNewEvent(eventNameIWithObjectId, listener, thisEvent);
         }
     }
 
-    public void StopListening(string eventName, UnityAction listener, string objectId = "")
+    public void StopListening(string eventName, UnityAction<object> listener, string objectId = "")
     {
-        UnityEvent thisEvent = null;
+        UnityEvent<object> thisEvent = null;
         string eventNameIWithObjectId = objectId + eventName;
 
         if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
@@ -44,15 +44,15 @@ public class EventManagerService {
         }
     }
 
-    public void TriggerEvent(string eventName, string objectId = "", params object[] arguments)
+    public void TriggerEvent(AvailableEvents eventName, object dataSentWithEvent, string objectId = "")
     {
-        UnityEvent thisEvent = null;
+        UnityEvent<object> thisEvent = null;
         string eventNameIWithObjectId = objectId + eventName;
 
         if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
         {
             // If event exists, run/invoke it.
-            thisEvent.Invoke((object) arguments );
+            thisEvent.Invoke((object) dataSentWithEvent);
         }
         else
         {
@@ -62,13 +62,19 @@ public class EventManagerService {
 
     #region Private methods
 
-    private UnityEvent CreateNewEvent(string eventName, UnityAction listener, UnityEvent thisEvent)
+    private UnityEvent<object> CreateNewEvent(string eventName, UnityAction<object> listener, UnityEvent<object> thisEvent)
     {
-        thisEvent = new UnityEvent();
+        thisEvent = new MyEvent();
         thisEvent.AddListener(listener);
-        _eventDictionary.Add(eventName, thisEvent);
+        _eventDictionary.Add(eventName.ToString(), thisEvent);
         return thisEvent;
     }
 
     #endregion
+
+    [System.Serializable]
+    public class MyEvent : UnityEvent<object>
+    {
+
+    }
 }

@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
             return _currentHealth;
         }
         set {
-            _currentHealth = value > MaxHealth ? MaxHealth : value;
+            _currentHealth = (value > MaxHealth ? MaxHealth : value);
         }
     }
 
@@ -78,9 +78,24 @@ public class Health : MonoBehaviour
         //impulse = magnitude of change
         Vector3 result = initialVelocity - newVelocity;
 
-        CurrentHealth -= (int)(result.magnitude * 20);
+        var healthLost = (int)(result.magnitude * 20);
 
-        Scene.Events.TriggerEvent("LostHealth", );
+        CurrentHealth -= healthLost;
+
+        TriggerHealthLostEvent(healthLost);
+    }
+
+    private void TriggerHealthLostEvent(int healthLost)
+    {
+        Scene.Events.TriggerEvent(
+            AvailableEvents.PLAYER_LOST_HEALTH,
+            new EventDataModels.Health
+            {
+                CurrentHealth = CurrentHealth,
+                HealthAmmount = healthLost,
+                Effect = EffectType.Lost
+            }
+        );
     }
 
     #endregion

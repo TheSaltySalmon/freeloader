@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HealthBar {
@@ -11,13 +12,32 @@ public class HealthBar {
 
     public HealthBar()
     {
-        LoadResourceAndSetup();	
+        LoadResourceAndSetup();
+        AddEventListeners();
     }
 
-    SceneController.EventManager
+    #region Private methods
+
+    private void AddEventListeners()
+    {
+        Debug.Log(Scene.Events);
+
+        Scene.Events.StartListening(
+            AvailableEvents.PLAYER_LOST_HEALTH,
+            new UnityAction<object>(UpdateHealthBar)
+        );
+    }
+    private void UpdateHealthBar(object data)
+    {
+        var healthData = (EventDataModels.Health)data;
+
+        Debug.Log("Got health " + healthData.Effect + ": " + healthData.HealthAmmount + ": " + healthData.CurrentHealth);
+    }
 
     private void LoadResourceAndSetup()
     {
-        _slider = SceneController.ObjectPool.GetSingle(RESOURCE_SLIDER);
+        _slider = Scene.ObjectPool.GetSingle(RESOURCE_SLIDER);
     }
+
+    #endregion
 }

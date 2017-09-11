@@ -5,14 +5,9 @@ using UnityEngine;
 public class UIController : MonoBehaviour {
     
     private HealthBar _healthBar;
-    
-    public UIController()
-    {
-        SetupUI();
-    }
 
     #region Private methods
-    private void SetupUI()
+    public void SetupUI()
     {
         _healthBar = new HealthBar();
     }
