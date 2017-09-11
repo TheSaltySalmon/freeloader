@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public enum AvailableEvents {
+    // Player Health
     PLAYER_LOST_HEALTH,
     PLAYER_GAINED_HEALTH,
-    PLAYER_DIED
+    PLAYER_DIED,
+
+    // Player Fuel
+    PLAYER_GAINED_FUEL,
+    PLAYER_LOST_FUEL
 }
 
 public class EventManagerService {

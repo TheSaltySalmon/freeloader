@@ -19,4 +19,12 @@ namespace EventDataModels
         public int HealthAmount { get; set; }
         public EffectType Effect { get; set; }
     }
+
+    public class Fuel
+    {
+        public int MaxFuel { get; set; }
+        public int CurrentFuel { get; set; }
+        public int FuelAmount { get; set; }
+        public EffectType Effect { get; set; }
+    }
 }

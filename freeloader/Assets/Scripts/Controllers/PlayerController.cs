@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     
     private Health _health;
+    private Fuel _fuel;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidBody;
     private PlayerShipMovementService _playerShipMovement;
@@ -47,11 +48,12 @@ public class PlayerController : MonoBehaviour {
     private void AddComponents()
     {
         _health = gameObject.AddComponent<Health>();
+        _fuel = gameObject.AddComponent<Fuel>();
         gameObject.AddComponent<BurnDownIfDead>();
     }
     private void AddServices()
     {
-        _playerShipMovement = new PlayerShipMovementService(gameObject.transform, _rigidBody, _health);
+        _playerShipMovement = new PlayerShipMovementService(gameObject.transform, _rigidBody, _health, _fuel);
         _playerShipThrustParticlesService = new PlayerShipThrustParticlesService(gameObject, _playerShipMovement);
         _cameraService = new CameraService(gameObject);
     }
