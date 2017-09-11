@@ -5,13 +5,22 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int StartingHealth = 100;
-    public int CurrentHealth;
-    public Slider HealthSlider;
-
+    private int _currentHealth;
     private Rigidbody2D _rigidBody;
 
+    public int MaxHealth = 100; 
+    public int StartingHealth = 100;
+
     #region properties
+
+    public int CurrentHealth {
+        get {
+            return _currentHealth;
+        }
+        set {
+            _currentHealth = (value > MaxHealth ? MaxHealth : value);
+        }
+    }
 
     public bool IsDamaged
     {
@@ -69,7 +78,24 @@ public class Health : MonoBehaviour
         //impulse = magnitude of change
         Vector3 result = initialVelocity - newVelocity;
 
-        CurrentHealth -= (int)(result.magnitude * 20);
+        var healthLost = (int)(result.magnitude * 20);
+
+        CurrentHealth -= healthLost;
+
+        TriggerHealthLostEvent(healthLost);
+    }
+
+    private void TriggerHealthLostEvent(int healthLost)
+    {
+        Scene.Events.TriggerEvent(
+            AvailableEvents.PLAYER_LOST_HEALTH,
+            new EventDataModels.Health
+            {
+                CurrentHealth = CurrentHealth,
+                HealthAmmount = healthLost,
+                Effect = EffectType.Lost
+            }
+        );
     }
 
     #endregion
