@@ -11,7 +11,18 @@ public class PlayerController : MonoBehaviour {
     private CameraService _cameraService;
     private PlayerShipThrustParticlesService _playerShipThrustParticlesService;
 
-	// Use this for initialization
+    #region Properties
+    public Health Health
+    {
+        get
+        {
+            return _health;
+        }
+    }
+
+    #endregion
+
+    // Use this for initialization
 	void Start () {
         GetComponents();
         AddComponents();

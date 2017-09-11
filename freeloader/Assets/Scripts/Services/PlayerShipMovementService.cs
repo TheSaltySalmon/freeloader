@@ -6,8 +6,8 @@ public class PlayerShipMovementService
 {
 
     public float movementSpeed = 2.8f;
-    public float rotationSpeed = 1.2f;
-    public bool isShipRotationUpgraded;
+    public float rotationSpeed = 1.8f;
+    public bool isShipRotationUpgraded = true;
 
     private Rigidbody2D _rigidBody;
     private Health _health;
