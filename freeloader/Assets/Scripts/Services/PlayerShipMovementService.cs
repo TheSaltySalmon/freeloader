@@ -99,13 +99,16 @@ public class PlayerShipMovementService
     {
         if (isShipRotationUpgraded)
         {
+            _rigidBody.angularVelocity = 0;
             float rotationValue = (horizontalMovement * rotationSpeed) * -1;
-            _transform.Rotate(0, 0, rotationValue);
+            _rigidBody.MoveRotation(_rigidBody.rotation + rotationValue);
+            //float rotationValue = (horizontalMovement * rotationSpeed) * -1;
+            //_transform.Rotate(0, 0, rotationValue);
 
-            if (IsPlayerCurrentlyRotatingShipByInput)
-            {
-                _rigidBody.angularVelocity = 0;
-            }
+            //if (IsPlayerCurrentlyRotatingShipByInput)
+            //{
+            //    _rigidBody.angularVelocity = 0;
+            //}
         }
         else
         {
