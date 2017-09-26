@@ -55,36 +55,38 @@ public class Health : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine(CollisionHandler());
+        StartCoroutine(CollisionHandler(collision));
     }
 
     #region Private methods
 
-    private IEnumerator CollisionHandler()
+    private IEnumerator CollisionHandler(Collision2D collision)
     {
-        Vector3 initialVelocity, newVelocity;
+        //Vector3 initialVelocity, newVelocity;
 
-        //get velocity
-        initialVelocity = _rigidBody.velocity;
+        ////get velocity
+        //initialVelocity = _rigidBody.velocity;
 
-        //wait for new updates, by trial and error.
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
+        ////wait for new updates, by trial and error.
+        //yield return null;
+        //yield return null;
+        //yield return null;
+        //yield return null;
+        //yield return null;
 
-        //get new velocity
-        newVelocity = _rigidBody.velocity;
+        ////get new velocity
+        //newVelocity = _rigidBody.velocity;
 
-        //impulse = magnitude of change
-        Vector3 result = initialVelocity - newVelocity;
+        ////impulse = magnitude of change
+        //Vector3 result = initialVelocity - newVelocity;
+        var result = collision.relativeVelocity.magnitude;
 
-        var healthLost = (int)(result.magnitude * 20);
+        var healthLost = (int)(result * result * 1.5);
 
         CurrentHealth -= healthLost;
 
         TriggerHealthLostEvent(healthLost);
+        return null;
     }
 
     private void TriggerHealthGainedEvent(int healthGained)
