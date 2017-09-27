@@ -10,7 +10,7 @@ public class Fuel : MonoBehaviour {
     private Rigidbody2D _rigidBody;
 
     public int MaxFuel = 100;
-    public int StartingFuel = 10;
+    public int StartingFuel = 50;
 
     #region properties
 
