@@ -14,72 +14,77 @@ public enum AvailableEvents {
     PLAYER_LOST_FUEL
 }
 
-public class EventManagerService {
-
-    private Dictionary<string, UnityEvent<object>> _eventDictionary;
-
-    public EventManagerService()
+namespace Services
+{
+    public class EventManagerService
     {
-        _eventDictionary = new Dictionary<string, UnityEvent<object>>();
-    }
 
-    public void StartListening(AvailableEvents eventName, UnityAction<object> listener, string objectId = "")
-    {
-        UnityEvent<object> thisEvent = null;
-        string eventNameIWithObjectId = objectId + eventName;
+        private Dictionary<string, UnityEvent<object>> _eventDictionary;
 
-        if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
+        public EventManagerService()
         {
+            _eventDictionary = new Dictionary<string, UnityEvent<object>>();
+        }
+
+        public void StartListening(AvailableEvents eventName, UnityAction<object> listener, string objectId = "")
+        {
+            UnityEvent<object> thisEvent = null;
+            string eventNameIWithObjectId = objectId + eventName;
+
+            if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
+            {
+                thisEvent.AddListener(listener);
+            }
+            else
+            {
+                thisEvent = CreateNewEvent(eventNameIWithObjectId, listener, thisEvent);
+            }
+        }
+
+        public void StopListening(string eventName, UnityAction<object> listener, string objectId = "")
+        {
+            UnityEvent<object> thisEvent = null;
+            string eventNameIWithObjectId = objectId + eventName;
+
+            if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
+            {
+                thisEvent.RemoveListener(listener);
+            }
+        }
+
+        public void TriggerEvent(AvailableEvents eventName, object dataSentWithEvent, string objectId = "")
+        {
+            UnityEvent<object> thisEvent = null;
+            string eventNameIWithObjectId = objectId + eventName;
+
+            if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
+            {
+                // If event exists, run/invoke it.
+                thisEvent.Invoke((object)dataSentWithEvent);
+            }
+            else
+            {
+                Debug.Log("No listeners attached to event '" + eventNameIWithObjectId + "'.");
+            }
+        }
+
+        #region Private methods
+
+        private UnityEvent<object> CreateNewEvent(string eventName, UnityAction<object> listener, UnityEvent<object> thisEvent)
+        {
+            thisEvent = new MyEvent();
             thisEvent.AddListener(listener);
+            _eventDictionary.Add(eventName.ToString(), thisEvent);
+            return thisEvent;
         }
-        else
+
+        #endregion
+
+        [System.Serializable]
+        public class MyEvent : UnityEvent<object>
         {
-            thisEvent = CreateNewEvent(eventNameIWithObjectId, listener, thisEvent);
+
         }
-    }
-
-    public void StopListening(string eventName, UnityAction<object> listener, string objectId = "")
-    {
-        UnityEvent<object> thisEvent = null;
-        string eventNameIWithObjectId = objectId + eventName;
-
-        if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
-        {
-            thisEvent.RemoveListener(listener);
-        }
-    }
-
-    public void TriggerEvent(AvailableEvents eventName, object dataSentWithEvent, string objectId = "")
-    {
-        UnityEvent<object> thisEvent = null;
-        string eventNameIWithObjectId = objectId + eventName;
-
-        if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
-        {
-            // If event exists, run/invoke it.
-            thisEvent.Invoke((object) dataSentWithEvent);
-        }
-        else
-        {
-            Debug.Log("No listeners attached to event '" + eventNameIWithObjectId + "'.");
-        }
-    }
-
-    #region Private methods
-
-    private UnityEvent<object> CreateNewEvent(string eventName, UnityAction<object> listener, UnityEvent<object> thisEvent)
-    {
-        thisEvent = new MyEvent();
-        thisEvent.AddListener(listener);
-        _eventDictionary.Add(eventName.ToString(), thisEvent);
-        return thisEvent;
-    }
-
-    #endregion
-
-    [System.Serializable]
-    public class MyEvent : UnityEvent<object>
-    {
-
     }
 }
+
