@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIController : MonoBehaviour {
     
     private UIHealthBar _healthBar;
+    private UIFuelBar _fuelBar;
     private Canvas _canvas;
 
     void Awake()
@@ -16,6 +17,9 @@ public class UIController : MonoBehaviour {
     
     public void SetupUI()
     {
+        _fuelBar = new UIFuelBar();
+        _fuelBar.AddToUI(gameObject, _canvas);
+
         _healthBar = new UIHealthBar();
         _healthBar.AddToUI(gameObject, _canvas);
     }
