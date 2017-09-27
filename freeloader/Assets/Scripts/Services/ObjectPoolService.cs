@@ -47,6 +47,9 @@ public class ObjectPoolService
                     returnGameObjectList.Add(gameObjectInPool);
                 }
             }
+
+            // Avoid loading new resource to save CPU time, take first of type from pool.
+            gameObjectResourceToInstantiate = (UnityEngine.Object)_gameObjectPool[gameObjectName][0];
         }
 
         // In case we are short of game objects to return

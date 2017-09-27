@@ -49,40 +49,40 @@ public class Health : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         CurrentHealth = StartingHealth;
+
+        TriggerHealthGainedEvent(StartingHealth);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine(CollisionHandler());
+        HandleCollision(collision);
     }
 
     #region Private methods
 
-    private IEnumerator CollisionHandler()
+    private void HandleCollision(Collision2D collision)
     {
-        Vector3 initialVelocity, newVelocity;
+        var result = collision.relativeVelocity.magnitude;
 
-        //get velocity
-        initialVelocity = _rigidBody.velocity;
-
-        //wait for new updates, by trial and error.
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-
-        //get new velocity
-        newVelocity = _rigidBody.velocity;
-
-        //impulse = magnitude of change
-        Vector3 result = initialVelocity - newVelocity;
-
-        var healthLost = (int)(result.magnitude * 20);
+        var healthLost = (int)(result * result * 1.5);
 
         CurrentHealth -= healthLost;
 
         TriggerHealthLostEvent(healthLost);
+    }
+
+    private void TriggerHealthGainedEvent(int healthGained)
+    {
+        Scene.Events.TriggerEvent(
+            AvailableEvents.PLAYER_LOST_HEALTH,
+            new EventDataModels.Health
+            {
+                MaxHealth = MaxHealth,
+                CurrentHealth = CurrentHealth,
+                HealthAmount = healthGained,
+                Effect = EffectType.Gained
+            }
+        );
     }
 
     private void TriggerHealthLostEvent(int healthLost)
@@ -91,8 +91,9 @@ public class Health : MonoBehaviour
             AvailableEvents.PLAYER_LOST_HEALTH,
             new EventDataModels.Health
             {
+                MaxHealth = MaxHealth,
                 CurrentHealth = CurrentHealth,
-                HealthAmmount = healthLost,
+                HealthAmount = healthLost,
                 Effect = EffectType.Lost
             }
         );

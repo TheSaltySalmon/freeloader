@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerShipMovementService
 {
-
     public float movementSpeed = 2.8f;
     public float rotationSpeed = 1.8f;
-    public bool isShipRotationUpgraded = true;
+    public bool isShipRotationUpgraded = false;
 
     private Rigidbody2D _rigidBody;
     private Health _health;
+    private Fuel _fuel;
     private Transform _transform;
 
     #region Properties
@@ -19,7 +19,7 @@ public class PlayerShipMovementService
     {
         get
         {
-            if (!_health.IsAlive) { return false; }
+            if (!_health.IsAlive || _fuel.IsOutOfFuel) { return false; }
             return Input.GetKey(KeyCode.LeftArrow);
         }
     }
@@ -28,7 +28,7 @@ public class PlayerShipMovementService
     {
         get
         {
-            if (!_health.IsAlive) { return false; }
+            if (!_health.IsAlive || _fuel.IsOutOfFuel) { return false; }
             return Input.GetKey(KeyCode.RightArrow);
         }
     }
@@ -37,7 +37,7 @@ public class PlayerShipMovementService
     {
         get
         {
-            if (!_health.IsAlive) { return false; }
+            if (!_health.IsAlive || _fuel.IsOutOfFuel) { return false; }
             return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
         }
     }
@@ -46,7 +46,7 @@ public class PlayerShipMovementService
     {
         get
         {
-            if (!_health.IsAlive) { return false; }
+            if (!_health.IsAlive || _fuel.IsOutOfFuel) { return false; }
             return Input.GetKey(KeyCode.UpArrow);
         }
     }
@@ -55,18 +55,19 @@ public class PlayerShipMovementService
     {
         get
         {
-            return _health.IsAlive;
+            return _health.IsAlive && !_fuel.IsOutOfFuel;
         }
     }
 
     #endregion
 
     // Constructor
-    public PlayerShipMovementService(Transform transform, Rigidbody2D rigidBody, Health health)
+    public PlayerShipMovementService(Transform transform, Rigidbody2D rigidBody, Health health, Fuel fuel)
     {
         _transform = transform;
         _rigidBody = rigidBody;
         _health = health;
+        _fuel = fuel;
     }
 
     // Should be called in a "FixedUpdate" (Physics)
@@ -90,6 +91,7 @@ public class PlayerShipMovementService
         if (verticalMovement > 0)
         {
             _rigidBody.AddForce(_transform.up * verticalMovement * movementSpeed);
+            _fuel.CombustFuel(0.01f);
         }
     }
 
@@ -97,19 +99,17 @@ public class PlayerShipMovementService
     {
         if (isShipRotationUpgraded)
         {
+            _rigidBody.angularVelocity = 0;
             float rotationValue = (horizontalMovement * rotationSpeed) * -1;
-            _transform.Rotate(0, 0, rotationValue);
-
-            if (IsPlayerCurrentlyRotatingShipByInput)
-            {
-                _rigidBody.angularVelocity = 0;
-            }
+            _rigidBody.MoveRotation(_rigidBody.rotation + rotationValue);
         }
         else
         {
             float rotationValue = (horizontalMovement * rotationSpeed / 10) * -1;
             _rigidBody.AddTorque(rotationValue);
         }
+
+        _fuel.CombustFuel(0.01f);
     }
 
 
