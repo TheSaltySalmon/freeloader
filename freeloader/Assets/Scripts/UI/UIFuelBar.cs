@@ -9,7 +9,7 @@ public class UIFuelBar {
 
     private const string RESOURCE_BAR = "UI/Bar";
     private readonly Color BAR_COLOR = new Color(0.5f, 0.5f, 0.9f);
-    private readonly Vector2 START_POSITION = new Vector2(250, -50);
+    private readonly Vector2 START_POSITION = new Vector2(320, -50);
     
     private GameObject _bar;
     private Slider _slider;
@@ -23,6 +23,7 @@ public class UIFuelBar {
 
     public void AddToUI(GameObject UI, Canvas canvas)
     {
+        Debug.Log("Added Fuelbar to UI");
         _bar.transform.SetParent(UI.transform);
         _rectTransform = _bar.GetComponent<RectTransform>();
 
@@ -35,22 +36,22 @@ public class UIFuelBar {
     private void AddEventListeners()
     {
         Scene.Events.StartListening(
-            AvailableEvents.PLAYER_LOST_HEALTH,
-            new UnityAction<object>(UpdateHealthBar)
+            AvailableEvents.PLAYER_LOST_FUEL,
+            new UnityAction<object>(UpdateFuelBar)
         );
 
         Scene.Events.StartListening(
-            AvailableEvents.PLAYER_GAINED_HEALTH,
-            new UnityAction<object>(UpdateHealthBar)
+            AvailableEvents.PLAYER_GAINED_FUEL,
+            new UnityAction<object>(UpdateFuelBar)
         );
     }
 
-    private void UpdateHealthBar(object data)
+    private void UpdateFuelBar(object data)
     {
-        var healthData = (EventDataModels.Health)data;
+        var fuelData = (EventDataModels.Fuel)data;
 
-        _slider.maxValue = healthData.MaxHealth;
-        _slider.value = healthData.CurrentHealth;
+        _slider.maxValue = fuelData.MaxFuel;
+        _slider.value = fuelData.CurrentFuel;
     }
 
     private void LoadResourceAndSetup()

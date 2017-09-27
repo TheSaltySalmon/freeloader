@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class Fuel : MonoBehaviour {
 
-    private float _currentFuel;
+    private int _currentFuel;
+    private float _fuelCombustionCounter;
     private Rigidbody2D _rigidBody;
 
-    public float MaxFuel = 100;
-    public float StartingFuel = 100;
+    public int MaxFuel = 100;
+    public int StartingFuel = 10;
 
     #region properties
 
-    public float CurrentFuel
+    public int CurrentFuel
     {
         get
         {
@@ -47,14 +48,17 @@ public class Fuel : MonoBehaviour {
         TriggerFuelGainedEvent((int)StartingFuel);
     }
 
-    public void CombustFuel(float fuelAmmount)
+    public void CombustFuel(float combustionAmmount)
     {
-        CurrentFuel -= fuelAmmount;
+        _fuelCombustionCounter += combustionAmmount;
 
-        if (Math.Round(CurrentFuel, 1) % 1 == 0)
+        if(_fuelCombustionCounter > 1)
         {
-            TriggerFuelLostEvent(1);
-            Debug.Log("Its a whole number: " + fuelAmmount);
+            var lostFuelAmmount = (int)Math.Round(_fuelCombustionCounter, 1);
+        
+            CurrentFuel -= lostFuelAmmount;
+            TriggerFuelLostEvent(lostFuelAmmount);
+            _fuelCombustionCounter = 0;
         }
     }
 
@@ -63,7 +67,7 @@ public class Fuel : MonoBehaviour {
     private void TriggerFuelGainedEvent(int fuelGained)
     {
         Scene.Events.TriggerEvent(
-            AvailableEvents.PLAYER_LOST_FUEL,
+            AvailableEvents.PLAYER_GAINED_FUEL,
             new EventDataModels.Fuel
             {
                 MaxFuel = (int)MaxFuel,

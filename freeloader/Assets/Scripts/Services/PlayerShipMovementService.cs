@@ -102,19 +102,14 @@ public class PlayerShipMovementService
             _rigidBody.angularVelocity = 0;
             float rotationValue = (horizontalMovement * rotationSpeed) * -1;
             _rigidBody.MoveRotation(_rigidBody.rotation + rotationValue);
-            //float rotationValue = (horizontalMovement * rotationSpeed) * -1;
-            //_transform.Rotate(0, 0, rotationValue);
-
-            //if (IsPlayerCurrentlyRotatingShipByInput)
-            //{
-            //    _rigidBody.angularVelocity = 0;
-            //}
         }
         else
         {
             float rotationValue = (horizontalMovement * rotationSpeed / 10) * -1;
             _rigidBody.AddTorque(rotationValue);
         }
+
+        _fuel.CombustFuel(0.01f);
     }
 
 
