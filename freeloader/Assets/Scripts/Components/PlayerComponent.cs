@@ -9,28 +9,31 @@ namespace FreeLoader.Components
     [ScriptExecutionOrder(-80)]
     public class PlayerComponent : ComponentBase
     {
-        private PlayerController _player;
+        private PlayerController _playerController;
 
-        public PlayerController Player
+        public PlayerController PlayerController
         {
             get
             {
-                return _player;
+                return _playerController;
             }
         }
 
         public void Start()
         {
-            _player = new PlayerController(gameObject, this);
+            _playerController = new PlayerController(
+                gameObject,
+                this
+            );
         }
         void FixedUpdate()
         {
-            _player.HandleFixedUpdate();
+            _playerController.HandleFixedUpdate();
         }
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            _player.HandleCollision(collision);
+            _playerController.HandleCollision(collision);
         }
 
     }

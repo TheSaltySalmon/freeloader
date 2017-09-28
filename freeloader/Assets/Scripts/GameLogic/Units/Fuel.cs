@@ -1,4 +1,5 @@
 ﻿using FreeLoader.Components;
+using FreeLoader.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ namespace FreeLoader.GameLogic.Units
 
         private int _currentFuel;
         private float _fuelCombustionCounter;
-        private Rigidbody2D _rigidBody;
 
         public int MaxFuel = 100;
         public int StartingFuel = 50;
@@ -47,7 +47,6 @@ namespace FreeLoader.GameLogic.Units
         public Fuel()
         {
             CurrentFuel = StartingFuel;
-
             TriggerFuelGainedEvent((int)StartingFuel);
         }
 
@@ -69,7 +68,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerFuelGainedEvent(int fuelGained)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_GAINED_FUEL,
                 new EventDataModels.Fuel
                 {
@@ -83,7 +82,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerFuelLostEvent(int fuelLost)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_FUEL,
                 new EventDataModels.Fuel
                 {

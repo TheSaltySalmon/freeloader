@@ -16,18 +16,19 @@ public enum AvailableEvents {
 
 namespace FreeLoader.Services
 {
-    public class EventManagerService
+    public class EventManager : IEventManager
     {
-
         private Dictionary<string, UnityEvent<object>> _eventDictionary;
 
-        public EventManagerService()
+        public EventManager()
         {
             _eventDictionary = new Dictionary<string, UnityEvent<object>>();
         }
 
         public void StartListening(AvailableEvents eventName, UnityAction<object> listener, string objectId = "")
         {
+            Debug.Log("StartListening");
+
             UnityEvent<object> thisEvent = null;
             string eventNameIWithObjectId = objectId + eventName;
 
@@ -41,19 +42,25 @@ namespace FreeLoader.Services
             }
         }
 
-        public void StopListening(string eventName, UnityAction<object> listener, string objectId = "")
+        public void StopListening(AvailableEvents eventName, UnityAction<object> listener, string objectId = "")
         {
+            Debug.Log("StopListening");
+
             UnityEvent<object> thisEvent = null;
             string eventNameIWithObjectId = objectId + eventName;
 
             if (_eventDictionary.TryGetValue(eventNameIWithObjectId, out thisEvent))
             {
-                thisEvent.RemoveListener(listener);
+                try {
+                    thisEvent.RemoveListener(listener);
+                } catch { }
             }
         }
 
         public void TriggerEvent(AvailableEvents eventName, object dataSentWithEvent, string objectId = "")
         {
+            Debug.Log("TriggerEvent - EventName = " + eventName);
+
             UnityEvent<object> thisEvent = null;
             string eventNameIWithObjectId = objectId + eventName;
 

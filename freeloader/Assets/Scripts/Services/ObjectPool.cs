@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace FreeLoader.Services
 {
-    public class ObjectPoolService
+    public class ObjectPool : IObjectPool
     {
         private Dictionary<string, List<object>> _gameObjectPool;
 
-        public ObjectPoolService()
+        public ObjectPool()
         {
             _gameObjectPool = new Dictionary<string, List<object>>();
         }

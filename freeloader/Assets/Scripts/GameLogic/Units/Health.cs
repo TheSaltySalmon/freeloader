@@ -1,4 +1,5 @@
 ﻿using FreeLoader.Components;
+using FreeLoader.Services;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,11 @@ namespace FreeLoader.GameLogic.Units
 {
     public class Health
     {
-        private int _currentHealth;
 
         public int MaxHealth = 100; 
         public int StartingHealth = 100;
+
+        private int _currentHealth;
 
         #region properties
 
@@ -75,7 +77,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerDiedEvent()
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_DIED,
                 null
             );
@@ -83,7 +85,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerHealthGainedEvent(int healthGained)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_GAINED_HEALTH,
                 new EventDataModels.Health
                 {
@@ -97,7 +99,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerHealthLostEvent(int healthLost)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_HEALTH,
                 new EventDataModels.Health
                 {
