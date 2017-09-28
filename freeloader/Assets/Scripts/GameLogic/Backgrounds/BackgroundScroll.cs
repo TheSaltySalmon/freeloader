@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using FreeLoader.Components;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic.Backgrounds
+namespace FreeLoader.GameLogic.Backgrounds
 {
     public class BackgroundScroll {
 

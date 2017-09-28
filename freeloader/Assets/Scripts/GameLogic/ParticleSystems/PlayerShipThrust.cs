@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic.ParticleSystems
+namespace FreeLoader.GameLogic.ParticleSystems
 {
     public class PlayerShipThrust
     {

@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Linq;
+using FreeLoader.Components;
 
-namespace GameLogic.UI
+namespace FreeLoader.GameLogic.UI
 {
     public class HealthBar
     {

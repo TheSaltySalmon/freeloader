@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic.Cameras
+namespace FreeLoader.GameLogic.Cameras
 {
 
     public class FollowingCamera {

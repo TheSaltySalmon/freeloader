@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using FreeLoader.Components;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameLogic.ParticleSystems
+namespace FreeLoader.GameLogic.ParticleSystems
 {
     public class BurnDown
     {

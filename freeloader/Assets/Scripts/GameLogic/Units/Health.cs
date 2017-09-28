@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using FreeLoader.Components;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameLogic.Units
+namespace FreeLoader.GameLogic.Units
 {
     public class Health
     {
@@ -83,7 +84,7 @@ namespace GameLogic.Units
         private void TriggerHealthGainedEvent(int healthGained)
         {
             SceneComponent.Events.TriggerEvent(
-                AvailableEvents.PLAYER_LOST_HEALTH,
+                AvailableEvents.PLAYER_GAINED_HEALTH,
                 new EventDataModels.Health
                 {
                     MaxHealth = MaxHealth,

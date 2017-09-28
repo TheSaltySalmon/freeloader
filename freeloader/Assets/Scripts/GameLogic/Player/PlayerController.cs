@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using FreeLoader.Components;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic.Player
+namespace FreeLoader.GameLogic.Player
 {
     public class PlayerController
     {

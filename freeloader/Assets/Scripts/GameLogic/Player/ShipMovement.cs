@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic.Player
+namespace FreeLoader.GameLogic.Player
 {
     public class ShipMovement
     {

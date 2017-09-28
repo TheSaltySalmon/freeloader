@@ -14,7 +14,7 @@ public enum AvailableEvents {
     PLAYER_LOST_FUEL
 }
 
-namespace Services
+namespace FreeLoader.Services
 {
     public class EventManagerService
     {
