@@ -9,7 +9,7 @@ public enum EffectType
     Lost
 }
 
-namespace EventDataModels
+namespace FreeLoader.EventDataModels
 {
 
     public class Health

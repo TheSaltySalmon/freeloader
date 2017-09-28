@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 
 
-namespace Services
+namespace FreeLoader.Services
 {
     public class ObjectPoolService
     {

@@ -1,32 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameLogic.Player;
+using FreeLoader.GameLogic.Player;
+using FreeLoader.Attributes;
 
-public class PlayerComponent : MonoBehaviour, IComponent
+namespace FreeLoader.Components
 {
-    private PlayerController _player;
-
-    public PlayerController Player
+    [ScriptExecutionOrder(-80)]
+    public class PlayerComponent : ComponentBase
     {
-        get
+        private PlayerController _player;
+
+        public PlayerController Player
         {
-            return _player;
+            get
+            {
+                return _player;
+            }
         }
-    }
 
-    public void Awake()
-    {
-        _player = new GameLogic.Player.PlayerController(gameObject, this);
-    }
-    void FixedUpdate()
-    {
-        _player.HandleFixedUpdate();
-    }
+        public void Start()
+        {
+            _player = new PlayerController(gameObject, this);
+        }
+        void FixedUpdate()
+        {
+            _player.HandleFixedUpdate();
+        }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        _player.HandleCollision(collision);
-    }
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            _player.HandleCollision(collision);
+        }
 
+    }
 }

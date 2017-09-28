@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameLogic.UI;
+using FreeLoader.GameLogic.UI;
+using FreeLoader.Attributes;
 
-public class UIComponent : MonoBehaviour 
+namespace FreeLoader.Components
 {
-    
-    private UIController _ui;
-
-    public UIController  UI { 
-        get {
-            return _ui;
-        }
-    }
-
-    void Awake()
+    [ScriptExecutionOrder(-90)]
+    public class UIComponent : ComponentBase
     {
-        _ui = new UIController(gameObject);
+
+        private UIController _ui;
+
+        public UIController UI
+        {
+            get
+            {
+                return _ui;
+            }
+        }
+
+        void Start()
+        {
+            _ui = new UIController(gameObject);
+        }
     }
 }

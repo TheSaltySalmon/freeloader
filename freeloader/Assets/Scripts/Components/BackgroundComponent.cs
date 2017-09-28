@@ -3,27 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using GameLogic.Backgrounds;
+using FreeLoader.GameLogic.Backgrounds;
 
-public class BackgroundComponent : MonoBehaviour
+namespace FreeLoader.Components
 {
-    public float yOffset;
-    public float xOffset;
-    public float scrollFactor;
-    private BackgroundScroll _backgroundScroll;
-
-    void Awake()
+    public class BackgroundComponent : ComponentBase
     {
-        _backgroundScroll = new BackgroundScroll(
-            gameObject.transform,
-            yOffset,
-            xOffset,
-            scrollFactor
-        );
-    }
+        public float yOffset;
+        public float xOffset;
+        public float scrollFactor;
+        private BackgroundScroll _backgroundScroll;
 
-    void Update()
-    {
-        _backgroundScroll.HandleUpdate();
+        void Awake()
+        {
+            _backgroundScroll = new BackgroundScroll(
+                gameObject.transform,
+                yOffset,
+                xOffset,
+                scrollFactor
+            );
+        }
+
+        void Update()
+        {
+            _backgroundScroll.HandleUpdate();
+        }
     }
 }
