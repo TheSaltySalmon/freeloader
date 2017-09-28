@@ -1,4 +1,5 @@
 ﻿using FreeLoader.Components;
+using FreeLoader.Services;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace FreeLoader.GameLogic.ParticleSystems
 
         public void OnEvent(AvailableEvents activationEvent)
         {
-            Game.Scene.Events.StartListening(
+            Game.Scene.EventManager.StartListening(
                 activationEvent,
                 new UnityAction<object>(StartBurning)
             );

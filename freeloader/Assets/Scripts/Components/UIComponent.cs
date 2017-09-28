@@ -10,19 +10,19 @@ namespace FreeLoader.Components
     public class UIComponent : ComponentBase
     {
 
-        private UIController _ui;
+        private UIController _uiController;
 
-        public UIController UI
+        public UIController UIController
         {
             get
             {
-                return _ui;
+                return _uiController;
             }
         }
 
         void Start()
         {
-            _ui = new UIController(gameObject);
+            _uiController = new UIController(gameObject);
         }
     }
 }

@@ -9,10 +9,10 @@ using UnityEngine.TestTools;
 namespace FreeLoader
 {
     // Class
-    class FuelTests : TestsBase
+    class FuelTests
     {
         // Constructor
-        public class FuelConstructor
+        public class FuelConstructor : TestsBase
         {
             [Test]
             public void It_should_have_same_current_fuel_and_starting_fuel_after_construction()

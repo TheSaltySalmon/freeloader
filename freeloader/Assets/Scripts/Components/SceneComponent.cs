@@ -8,11 +8,11 @@ namespace FreeLoader.Components
     [ScriptExecutionOrder(-100)]
     public class SceneComponent : ComponentBase
     {
-        public Services.ObjectPoolService ObjectPool;
-        public Services.EventManagerService Events;
-        public GameLogic.UI.UIController UI;
-        //public PlayerComponent Player;
         public const float SceneGravity = 0.02f;
+
+        // We need references to theese instances in other components.
+        public Services.IObjectPool ObjectPool;
+        public Services.IEventManager EventManager;
 
         // Use this for initialization
         void Awake()
@@ -22,7 +22,6 @@ namespace FreeLoader.Components
 
         void Start()
         {
-            FindObjectsAndGetReferences();
             Initialize();
         }
 
@@ -33,20 +32,10 @@ namespace FreeLoader.Components
             SetGravity();
         }
 
-        private void FindObjectsAndGetReferences()
-        {
-            UI = (FindObjectOfType(typeof(UIComponent)) as UIComponent).UI;
-            //Player = FindObjectOfType(typeof(PlayerComponent)) as PlayerComponent;
-        }
-
-
         private void StartServices()
         {
-
-            ObjectPool = new Services.ObjectPoolService();
-            Events = new Services.EventManagerService();
-
-            Debug.Log(ObjectPool);
+            ObjectPool = new Services.ObjectPool();
+            EventManager = new Services.EventManager();
         }
 
         private void SetGravity()
