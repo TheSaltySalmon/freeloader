@@ -38,12 +38,12 @@ namespace FreeLoader.GameLogic.UI
 
         private void AddEventListeners()
         {
-            SceneComponent.Events.StartListening(
+            Game.Scene.Events.StartListening(
                 AvailableEvents.PLAYER_LOST_HEALTH,
                 new UnityAction<object>(UpdateHealthBar)
             );
 
-            SceneComponent.Events.StartListening(
+            Game.Scene.Events.StartListening(
                 AvailableEvents.PLAYER_GAINED_HEALTH,
                 new UnityAction<object>(UpdateHealthBar)
             );
@@ -59,7 +59,7 @@ namespace FreeLoader.GameLogic.UI
 
         private void LoadResourceAndSetup()
         {
-            _bar = SceneComponent.ObjectPool.GetSingle(RESOURCE_BAR);
+            _bar = Game.Scene.ObjectPool.GetSingle(RESOURCE_BAR);
             _bar.SetActive(true);
             _slider = _bar.GetComponent<Slider>();
 

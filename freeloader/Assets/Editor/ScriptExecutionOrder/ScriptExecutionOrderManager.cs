@@ -4,9 +4,9 @@ using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
-public class ExecutionOrderManager : Editor
+public class ScriptExecutionOrderManager : Editor
 {
-    static ExecutionOrderManager()
+    static ScriptExecutionOrderManager()
     {
         foreach (MonoScript monoScript in MonoImporter.GetAllRuntimeMonoScripts())
         {

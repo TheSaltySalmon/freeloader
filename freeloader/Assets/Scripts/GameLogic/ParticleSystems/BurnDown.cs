@@ -32,7 +32,7 @@ namespace FreeLoader.GameLogic.ParticleSystems
 
         public void OnEvent(AvailableEvents activationEvent)
         {
-            SceneComponent.Events.StartListening(
+            Game.Scene.Events.StartListening(
                 activationEvent,
                 new UnityAction<object>(StartBurning)
             );
@@ -53,7 +53,7 @@ namespace FreeLoader.GameLogic.ParticleSystems
 
         private void LoadResourceAndSetup()
         {
-            _burningEffect = SceneComponent.ObjectPool.GetSingle(RESOURCE_BURNING_EFFECT);
+            _burningEffect = Game.Scene.ObjectPool.GetSingle(RESOURCE_BURNING_EFFECT);
             _burningEffect.transform.parent = _transform;
             _burningEffect.transform.position = INITIAL_BURNING_EFFECT_POSITION;
 

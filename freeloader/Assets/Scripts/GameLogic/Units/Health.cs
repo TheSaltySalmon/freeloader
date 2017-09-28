@@ -75,7 +75,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerDiedEvent()
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.Events.TriggerEvent(
                 AvailableEvents.PLAYER_DIED,
                 null
             );
@@ -83,7 +83,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerHealthGainedEvent(int healthGained)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.Events.TriggerEvent(
                 AvailableEvents.PLAYER_GAINED_HEALTH,
                 new EventDataModels.Health
                 {
@@ -97,7 +97,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerHealthLostEvent(int healthLost)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Scene.Events.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_HEALTH,
                 new EventDataModels.Health
                 {
