@@ -38,12 +38,12 @@ namespace FreeLoader.GameLogic.UI
 
         private void AddEventListeners()
         {
-            Game.Scene.EventManager.StartListening(
+            Game.Services.EventManager.StartListening(
                 AvailableEvents.PLAYER_LOST_FUEL,
                 new UnityAction<object>(UpdateFuelBar)
             );
 
-            Game.Scene.EventManager.StartListening(
+            Game.Services.EventManager.StartListening(
                 AvailableEvents.PLAYER_GAINED_FUEL,
                 new UnityAction<object>(UpdateFuelBar)
             );
@@ -59,7 +59,7 @@ namespace FreeLoader.GameLogic.UI
 
         private void LoadResourceAndSetup()
         {
-            _bar = Game.Scene.ObjectPool.GetSingle(RESOURCE_BAR);
+            _bar = Game.Services.ObjectPool.GetSingle(RESOURCE_BAR);
             _bar.SetActive(true);
             _slider = _bar.GetComponent<Slider>();
 

@@ -68,7 +68,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerFuelGainedEvent(int fuelGained)
         {
-            Game.Scene.EventManager.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_GAINED_FUEL,
                 new EventDataModels.Fuel
                 {
@@ -82,7 +82,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerFuelLostEvent(int fuelLost)
         {
-            Game.Scene.EventManager.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_FUEL,
                 new EventDataModels.Fuel
                 {
