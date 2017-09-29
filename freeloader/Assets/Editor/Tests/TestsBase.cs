@@ -13,39 +13,41 @@ namespace FreeLoader
 {
     class TestsBase
     {
-        protected IEventManager MockedEventManager; 
+        protected IEventManager MockedEventManager;
+        protected IObjectPool MockedObjectPool; 
    
         // Mock Services available in Scene
         [OneTimeSetUp]
-        public void OneTimeSetup(){
-
-            //Game.Services.UI = Substitute.For<GameLogic.UI.UIController>(new GameObject());
+        protected void OneTimeSetup(){
 
             MockObjectPoolServiceAndMethods();
             MockEventManagerServiceAndMethods();
         }
 
-        private void MockObjectPoolServiceAndMethods()
+        protected void MockObjectPoolServiceAndMethods()
         {
             // Mock Service
-            Game.Services.ObjectPool = Substitute.For<Services.IObjectPool>();
+            MockedObjectPool = Substitute.For<Services.IObjectPool>();
 
             // Mock Methods
 
             /* GetSingle(string) */
-            Game.Services.ObjectPool.GetSingle(
+            MockedObjectPool.GetSingle(
                 Arg.Any<string>()
             ).Returns(
                 new GameObject()
             );
 
             /* Get(string, int) */
-            var numberOfGameObjectsToReturn = 0;
-            Game.Services.ObjectPool.Get(
+            int numberOfGameObjectsToReturn = 0;
+
+            MockedObjectPool.Get(
                 Arg.Any<string>(), Arg.Do<int>(x => numberOfGameObjectsToReturn = x)
             ).Returns(
                 GenerateGameObjectsListWithEntries(numberOfGameObjectsToReturn)
             );
+
+            Game.Services.ObjectPool = MockedObjectPool;
         }
 
         private void MockEventManagerServiceAndMethods()

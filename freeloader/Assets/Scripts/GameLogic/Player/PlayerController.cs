@@ -47,7 +47,7 @@ namespace FreeLoader.GameLogic.Player
 
         public void HandleCollision(Collision2D collision)
         {
-            _health.HandleCollisionHealthLoss(collision);
+            _health.HandleCollisionHealthLoss(collision.relativeVelocity.magnitude);
         }
 
         #region Private methods

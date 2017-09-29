@@ -9,9 +9,9 @@ namespace FreeLoader.GameLogic.Units
 {
     public class Health
     {
-
         public int MaxHealth = 100; 
         public int StartingHealth = 100;
+        public float LostHealthCollisionFactor = 1.5f;
 
         private int _currentHealth;
 
@@ -60,11 +60,9 @@ namespace FreeLoader.GameLogic.Units
             TriggerHealthGainedEvent(StartingHealth);
         }
 
-        public void HandleCollisionHealthLoss(Collision2D collision)
+        public void HandleCollisionHealthLoss(float collisionVelocityMagnitude)
         {
-            var result = collision.relativeVelocity.magnitude;
-
-            var healthLost = (int)(result * result * 1.5);
+            var healthLost = (int)(collisionVelocityMagnitude * collisionVelocityMagnitude * LostHealthCollisionFactor);
 
             CurrentHealth -= healthLost;
 

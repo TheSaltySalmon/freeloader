@@ -27,6 +27,11 @@ namespace FreeLoader.GameLogic.Units
             set
             {
                 _currentFuel = (value > MaxFuel ? MaxFuel : value);
+
+                if (_currentFuel <= 0)
+                {
+                    TriggerOutOfFuelEvent();
+                }            
             }
         }
 
@@ -65,6 +70,14 @@ namespace FreeLoader.GameLogic.Units
         }
 
         #region Private methods
+
+        private void TriggerOutOfFuelEvent()
+        {
+            Game.Services.EventManager.TriggerEvent(
+                AvailableEvents.PLAYER_OUT_OF_FUEL,
+                null
+            );
+        }
 
         private void TriggerFuelGainedEvent(int fuelGained)
         {

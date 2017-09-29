@@ -11,7 +11,8 @@ public enum AvailableEvents {
 
     // Player Fuel
     PLAYER_GAINED_FUEL,
-    PLAYER_LOST_FUEL
+    PLAYER_LOST_FUEL,
+    PLAYER_OUT_OF_FUEL
 }
 
 namespace FreeLoader.Services
