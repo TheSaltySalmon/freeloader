@@ -14,10 +14,10 @@ using UnityEngine.Events;
 namespace FreeLoader
 {
     // Class
-    class FuelBarTests
+    class HealthBarTests
     {
         // Constructor
-        public class FuelBarConstructor : TestsBase
+        public class HealthBarConstructor : TestsBase
         {
             private GameObject _barGameObject;
 
@@ -33,10 +33,10 @@ namespace FreeLoader
             public void It_should_set_bar_active_and_setup_bar_fill_color()
             {
                 // Arrange
-                var barColor = new Color(0.5f, 0.5f, 0.9f);
+                var barColor = new Color(0.9f, 0.5f, 0.5f);
 
                 // Act
-                new FuelBar();
+                new HealthBar();
 
                 // Assert
                 var slider = _barGameObject.GetComponent<Slider>();
@@ -49,77 +49,77 @@ namespace FreeLoader
             }
 
             [Test]
-            public void It_should_add_event_listeners_for_player_fuel()
+            public void It_should_add_event_listeners_for_player_health()
             {
                 // Act
-                new FuelBar();
+                new HealthBar();
 
                 // Assert
                 MockedEventManager.Received().StartListening(
-                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_LOST_FUEL),
+                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_LOST_HEALTH),
                     Arg.Any<UnityAction<object>>()
                 );
 
                 MockedEventManager.Received().StartListening(
-                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_GAINED_FUEL),
+                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_GAINED_HEALTH),
                     Arg.Any<UnityAction<object>>()
                 );
             }
 
             [Test]
-            public void It_should_update_fuelbar_on_triggered_player_gained_fuel_event()
+            public void It_should_update_HealthBar_on_triggered_player_gained_health_event()
             {
                 // Arrange
-                var fuelEventData = new EventDataModels.Fuel{ CurrentFuel = 10, MaxFuel = 20 };
-                UnityAction<object> sutPlayerGainedFuelActionToInvoke = null;
+                var healthEventData = new EventDataModels.Health{ CurrentHealth = 10, MaxHealth = 20 };
+                UnityAction<object> sutPlayerGainedHealthActionToInvoke = null;
 
                 // Get delgate function to trigger.
                 MockedEventManager.StartListening(
-                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_GAINED_FUEL), 
-                    Arg.Do<UnityAction<object>>(x => sutPlayerGainedFuelActionToInvoke = x),
+                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_GAINED_HEALTH), 
+                    Arg.Do<UnityAction<object>>(x => sutPlayerGainedHealthActionToInvoke = x),
                     Arg.Any<string>()
                 );
 
                 // Act
-                new FuelBar();
-                sutPlayerGainedFuelActionToInvoke.Invoke(fuelEventData);
+                new HealthBar();
+                sutPlayerGainedHealthActionToInvoke.Invoke(healthEventData);
 
                 // Assert
                 var slider = _barGameObject.GetComponent<Slider>();
 
-                Assert.That(Equals((int)slider.value, (int)fuelEventData.CurrentFuel));
-                Assert.That(Equals((int)slider.maxValue, (int)fuelEventData.MaxFuel));
+                Assert.That(Equals((int)slider.value, (int)healthEventData.CurrentHealth));
+                Assert.That(Equals((int)slider.maxValue, (int)healthEventData.MaxHealth));
             }
 
             [Test]
-            public void It_should_update_fuelbar_on_triggered_player_lost_fuel_event()
+            public void It_should_update_HealthBar_on_triggered_player_lost_health_event()
             {
                 // Arrange
-                var fuelEventData = new EventDataModels.Fuel { CurrentFuel = 15, MaxFuel = 25 };
-                UnityAction<object> sutPlayerLostFuelActionToInvoke = null;
+                var healthEventData = new EventDataModels.Health { CurrentHealth = 15, MaxHealth = 25 };
+                UnityAction<object> sutPlayerLostHealthActionToInvoke = null;
 
                 MockedEventManager.StartListening(
-                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_LOST_FUEL),
-                    Arg.Do<UnityAction<object>>(x => sutPlayerLostFuelActionToInvoke = x),
+                    Arg.Is<AvailableEvents>(x => x == AvailableEvents.PLAYER_LOST_HEALTH),
+                    Arg.Do<UnityAction<object>>(x => sutPlayerLostHealthActionToInvoke = x),
                     Arg.Any<string>()
                 );
 
                 // Act
-                new FuelBar();
-                sutPlayerLostFuelActionToInvoke.Invoke(fuelEventData);
+                new HealthBar();
+                sutPlayerLostHealthActionToInvoke.Invoke(healthEventData);
 
                 // Assert
                 var slider = _barGameObject.GetComponent<Slider>();
 
-                Assert.That(Equals((int)slider.value, (int)fuelEventData.CurrentFuel));
-                Assert.That(Equals((int)slider.maxValue, (int)fuelEventData.MaxFuel));
+                Assert.That(Equals((int)slider.value, (int)healthEventData.CurrentHealth));
+                Assert.That(Equals((int)slider.maxValue, (int)healthEventData.MaxHealth));
             }
         }
 
         public class AddToUI : TestsBase
         {
             private GameObject _barGameObject;
-            private FuelBar _sut;
+            private HealthBar _sut;
             
             [SetUp]
             protected void BeforeEach()
@@ -128,7 +128,7 @@ namespace FreeLoader
                 _barGameObject = MonoBehaviour.Instantiate(barAsset) as GameObject;
                 MockedObjectPool.GetSingle(Arg.Any<string>()).Returns(_barGameObject);
 
-                _sut = new FuelBar();
+                _sut = new HealthBar();
             }
 
             [Test]

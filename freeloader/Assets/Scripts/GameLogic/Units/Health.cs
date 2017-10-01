@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace FreeLoader.GameLogic.Units
 {
-    public class Health
+    public class Health : IHealth
     {
         public int MaxHealth = 100; 
         public int StartingHealth = 100;

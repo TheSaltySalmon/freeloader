@@ -57,13 +57,13 @@ namespace FreeLoader.GameLogic.ParticleSystems
 
             // Right Throttle
             PlayOrStopParticleSystemIfNeeded(
-                _playerShipMovement.IsPlayerCurrentlyRotationShipLeftByInput,
+                _playerShipMovement.IsPlayerCurrentlyRotatingShipLeft,
                 _rightThrottleParticleSys
             );
 
             // Left Throttle
             PlayOrStopParticleSystemIfNeeded(
-                _playerShipMovement.IsPlayerCurrentlyRotationShipRightByInput,
+                _playerShipMovement.IsPlayerCurrentlyRotatingShipRight,
                 _leftThrottleParticleSys
             );
         }

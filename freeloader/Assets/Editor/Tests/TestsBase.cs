@@ -14,7 +14,8 @@ namespace FreeLoader
     class TestsBase
     {
         protected IEventManager MockedEventManager;
-        protected IObjectPool MockedObjectPool; 
+        protected IObjectPool MockedObjectPool;
+        protected IInputAdapter MockedInputAdapter;
    
         // Mock Services available in Scene
         [OneTimeSetUp]
@@ -22,6 +23,14 @@ namespace FreeLoader
 
             MockObjectPoolServiceAndMethods();
             MockEventManagerServiceAndMethods();
+            MockInputAdapter();
+        }
+
+        private void MockInputAdapter()
+        {
+            MockedInputAdapter = Substitute.For<Services.IInputAdapter>();
+
+            Game.Services.InputAdapter = MockedInputAdapter;
         }
 
         protected void MockObjectPoolServiceAndMethods()

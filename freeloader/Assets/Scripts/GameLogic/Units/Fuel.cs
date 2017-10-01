@@ -7,9 +7,8 @@ using UnityEngine;
 
 namespace FreeLoader.GameLogic.Units
 {
-    public class Fuel
+    public class Fuel : IFuel
     {
-
         private int _currentFuel;
         private float _fuelCombustionCounter;
 

@@ -9,6 +9,7 @@ namespace FreeLoader.Services
     {
         public IObjectPool ObjectPool;
         public IEventManager EventManager;
+        public IInputAdapter InputAdapter;
 
         public ServiceContainer()
         {
@@ -19,6 +20,7 @@ namespace FreeLoader.Services
         {
             ObjectPool = new ObjectPool();
             EventManager = new EventManager();
+            InputAdapter = new InputAdapter();
         }
     }
 }
