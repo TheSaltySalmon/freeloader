@@ -212,7 +212,163 @@ namespace FreeLoader
                 _fuel.DidNotReceive().CombustFuel(Arg.Any<float>());
             }
 
+            private void InitFuelMock()
+            {
+                _fuel.CurrentFuel = 100;
+                _fuel.IsOutOfFuel.Returns(false);
+            }
 
+            private void InitHealthMock()
+            {
+                _health.CurrentHealth = 100;
+                _health.IsAlive.Returns(true);
+            }
+        }
+
+        class ShipMovementProperties : TestsBase
+        {
+            private ShipMovement _sut;
+            private IFuel _fuel;
+            private IHealth _health;
+            private GameObject _gameObject;
+            private IRigidbody2D _mockedRigidBody;
+
+            [OneTimeSetUp]
+            protected void OneTimeSetup()
+            {
+                base.OneTimeSetup();
+
+                _fuel = Substitute.For<IFuel>();
+                _health = Substitute.For<IHealth>();
+            }
+
+            [SetUp]
+            protected void BeforeEach()
+            {
+                InitHealthMock();
+                InitFuelMock();
+
+                _gameObject = new GameObject("Mocked", typeof(Rigidbody2D));
+                _gameObject.SetActive(true);
+
+                _mockedRigidBody = Substitute.For<IRigidbody2D>();
+
+                _sut = new ShipMovement(_gameObject.transform, _mockedRigidBody, _health, _fuel);
+
+                _fuel.ClearReceivedCalls();
+            }
+
+            [Test]
+            public void IsPlayerRotatingShipLeft_should_return_true_if_input_adapter_has_correct_value()
+            {
+                // Arrange
+                MockedInputAdapter.IsRotatingLeft.Returns(true);
+            
+                // Assert
+                Assert.That(Equals(_sut.IsPlayerRotatingShipLeft, true));
+            }
+
+            [Test]
+            public void IsPlayerRotatingShipLeft_should_return_false_if_input_adapter_has_correct_value()
+            {
+                // Arrange
+                MockedInputAdapter.IsRotatingLeft.Returns(false);
+
+                // Assert
+                Assert.That(Equals(_sut.IsPlayerRotatingShipLeft, false));
+            }
+
+            [Test]
+            public void IsPlayerRotatingShipRight_should_return_true_if_input_adapter_has_correct_value()
+            {
+                // Arrange
+                MockedInputAdapter.IsRotatingRight.Returns(true);
+
+                // Assert
+                Assert.That(Equals(_sut.IsPlayerRotatingShipRight, true));
+            }
+
+            [Test]
+            public void IsPlayerRotatingShipRight_should_return_false_if_input_adapter_has_correct_value()
+            {
+                // Arrange
+                MockedInputAdapter.IsRotatingRight.Returns(false);
+
+                // Assert
+                Assert.That(Equals(_sut.IsPlayerRotatingShipRight, false));
+            }
+
+            [Test]
+            public void IsPlayerAcceleratingShip_should_return_true_if_input_adapter_has_correct_value()
+            {
+                // Arrange
+                MockedInputAdapter.IsAccelerating.Returns(true);
+
+                // Assert
+                Assert.That(Equals(_sut.IsPlayerAcceleratingShip, true));
+            }
+
+            [Test]
+            public void IsPlayerAcceleratingShip_should_return_false_if_input_adapter_has_correct_value()
+            {
+                // Arrange
+                MockedInputAdapter.IsAccelerating.Returns(false);
+
+                // Assert
+                Assert.That(Equals(_sut.IsPlayerAcceleratingShip, false));
+            }
+
+            [Test]
+            public void CanShipMove_should_return_true_if_player_is_alive_and_ship_has_fuel()
+            {
+                // Arrange
+                _fuel.IsOutOfFuel = false;
+                _fuel.CurrentFuel = 100;
+                _health.IsAlive = true;
+                _health.CurrentHealth = 100;
+
+                // Assert
+                Assert.That(Equals(_sut.CanShipMove, true));
+            }
+
+            [Test]
+            public void CanShipMove_should_return_false_if_player_is_alive_and_ship_has_no_fuel()
+            {
+                // Arrange
+                _fuel.IsOutOfFuel = true;
+                _fuel.CurrentFuel = 0;
+                _health.IsAlive = true;
+                _health.CurrentHealth = 100;
+
+                // Assert
+                Assert.That(Equals(_sut.CanShipMove, false));
+            }
+
+            [Test]
+            public void CanShipMove_should_return_false_if_player_is_dead_and_ship_has_fuel()
+            {
+                // Arrange
+                _fuel.IsOutOfFuel = false;
+                _fuel.CurrentFuel = 100;
+                _health.IsAlive = false;
+                _health.CurrentHealth = 0;
+
+                // Assert
+                Assert.That(Equals(_sut.CanShipMove, false));
+            }
+
+            [Test]
+            public void CanShipMove_should_return_false_if_player_is_dead_and_ship_has_no_fuel()
+            {
+                // Arrange
+                _fuel.IsOutOfFuel = true;
+                _fuel.CurrentFuel = 0;
+                _health.IsAlive = false;
+                _health.CurrentHealth = 0;
+
+                // Assert
+                Assert.That(Equals(_sut.CanShipMove, false));
+            }
 
             private void InitFuelMock()
             {

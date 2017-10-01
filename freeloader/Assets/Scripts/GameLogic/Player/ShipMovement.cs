@@ -18,7 +18,7 @@ namespace FreeLoader.GameLogic.Player
 
         #region Properties
 
-        public bool IsPlayerCurrentlyRotatingShipLeft
+        public bool IsPlayerRotatingShipLeft
         {
             get
             {
@@ -27,7 +27,7 @@ namespace FreeLoader.GameLogic.Player
             }
         }
 
-        public bool IsPlayerCurrentlyRotatingShipRight
+        public bool IsPlayerRotatingShipRight
         {
             get
             {
@@ -36,7 +36,7 @@ namespace FreeLoader.GameLogic.Player
             }
         }
 
-        public bool IsPlayerCurrentlyAcceleratingShipByInput
+        public bool IsPlayerAcceleratingShip
         {
             get
             {
