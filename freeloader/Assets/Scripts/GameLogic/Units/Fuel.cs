@@ -7,9 +7,8 @@ using UnityEngine;
 
 namespace FreeLoader.GameLogic.Units
 {
-    public class Fuel
+    public class Fuel : IFuel
     {
-
         private int _currentFuel;
         private float _fuelCombustionCounter;
 
@@ -27,6 +26,11 @@ namespace FreeLoader.GameLogic.Units
             set
             {
                 _currentFuel = (value > MaxFuel ? MaxFuel : value);
+
+                if (_currentFuel <= 0)
+                {
+                    TriggerOutOfFuelEvent();
+                }            
             }
         }
 
@@ -66,9 +70,17 @@ namespace FreeLoader.GameLogic.Units
 
         #region Private methods
 
+        private void TriggerOutOfFuelEvent()
+        {
+            Game.Services.EventManager.TriggerEvent(
+                AvailableEvents.PLAYER_OUT_OF_FUEL,
+                null
+            );
+        }
+
         private void TriggerFuelGainedEvent(int fuelGained)
         {
-            Game.Scene.EventManager.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_GAINED_FUEL,
                 new EventDataModels.Fuel
                 {
@@ -82,7 +94,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerFuelLostEvent(int fuelLost)
         {
-            Game.Scene.EventManager.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_FUEL,
                 new EventDataModels.Fuel
                 {

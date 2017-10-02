@@ -1,24 +1,26 @@
 ﻿using FreeLoader.Components;
 using FreeLoader.Services;
+using FreeLoader.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ImpromptuInterface;
 
 namespace FreeLoader.GameLogic.Player
 {
     public class PlayerController
     {
-        private Units.Fuel _fuel;
-        private Rigidbody2D _rigidBody;
+        private Units.IFuel _fuel;
+        private Units.IHealth _health;
+        private IRigidbody2D _rigidBody;
         private ShipMovement _playerShipMovement;
         private Cameras.FollowingCamera _camera;
         private ParticleSystems.PlayerShipThrust _playerShipThrustParticles;
-        private Units.Health _health;
         private GameObject _gameObject;
         private IComponent _playerComponent;
 
         #region Properties
-        public Units.Health Health
+        public Units.IHealth Health
         {
             get
             {
@@ -40,20 +42,23 @@ namespace FreeLoader.GameLogic.Player
         // Fixed Update is called once per frame
         public void HandleFixedUpdate()
         {
-            _playerShipMovement.HandleMovement();
+            _playerShipMovement.HandleMovement(
+                Game.Services.InputAdapter.HorizontalAxis,
+                Game.Services.InputAdapter.VerticalAxis
+            );
             _camera.HandleFollowObject();
             _playerShipThrustParticles.HandleShipThrottleParticleSystems();
         }
 
         public void HandleCollision(Collision2D collision)
         {
-            _health.HandleCollisionHealthLoss(collision);
+            _health.HandleCollisionHealthLoss(collision.relativeVelocity.magnitude);
         }
 
         #region Private methods
         private void GetComponents()
         {
-            _rigidBody = _gameObject.GetComponent<Rigidbody2D>();
+            _rigidBody = _gameObject.GetComponent<Rigidbody2D>().ActLike<IRigidbody2D>();
         }
 
         private void AddFunctionality()

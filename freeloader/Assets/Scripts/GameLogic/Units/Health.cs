@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 namespace FreeLoader.GameLogic.Units
 {
-    public class Health
+    public class Health : IHealth
     {
-
         public int MaxHealth = 100; 
         public int StartingHealth = 100;
+        public float LostHealthCollisionFactor = 1.5f;
 
         private int _currentHealth;
 
@@ -60,11 +60,9 @@ namespace FreeLoader.GameLogic.Units
             TriggerHealthGainedEvent(StartingHealth);
         }
 
-        public void HandleCollisionHealthLoss(Collision2D collision)
+        public void HandleCollisionHealthLoss(float collisionVelocityMagnitude)
         {
-            var result = collision.relativeVelocity.magnitude;
-
-            var healthLost = (int)(result * result * 1.5);
+            var healthLost = (int)(collisionVelocityMagnitude * collisionVelocityMagnitude * LostHealthCollisionFactor);
 
             CurrentHealth -= healthLost;
 
@@ -77,7 +75,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerDiedEvent()
         {
-            Game.Scene.EventManager.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_DIED,
                 null
             );
@@ -85,7 +83,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerHealthGainedEvent(int healthGained)
         {
-            Game.Scene.EventManager.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_GAINED_HEALTH,
                 new EventDataModels.Health
                 {
@@ -99,7 +97,7 @@ namespace FreeLoader.GameLogic.Units
 
         private void TriggerHealthLostEvent(int healthLost)
         {
-            Game.Scene.EventManager.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_HEALTH,
                 new EventDataModels.Health
                 {

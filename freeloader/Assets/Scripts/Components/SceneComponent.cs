@@ -10,14 +10,9 @@ namespace FreeLoader.Components
     {
         public const float SceneGravity = 0.02f;
 
-        // We need references to theese instances in other components.
-        public Services.IObjectPool ObjectPool;
-        public Services.IEventManager EventManager;
-
         // Use this for initialization
         void Awake()
         {
-            StartServices();
         }
 
         void Start()
@@ -30,12 +25,6 @@ namespace FreeLoader.Components
         private void Initialize()
         {
             SetGravity();
-        }
-
-        private void StartServices()
-        {
-            ObjectPool = new Services.ObjectPool();
-            EventManager = new Services.EventManager();
         }
 
         private void SetGravity()

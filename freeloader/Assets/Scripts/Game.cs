@@ -15,6 +15,7 @@ namespace FreeLoader
         private static SceneComponent _scene;
         private static UIComponent _ui;
         private static PlayerComponent _player;
+        private static Services.ServiceContainer _services;
 
         #region Properties
 
@@ -39,6 +40,14 @@ namespace FreeLoader
             get
             {
                 return _player ?? (_player = MonoBehaviour.FindObjectOfType<PlayerComponent>() as PlayerComponent);
+            }
+        }
+
+        public static Services.ServiceContainer Services
+        {
+            get
+            {
+                return _services ?? (_services = new Services.ServiceContainer());
             }
         }
 
