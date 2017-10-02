@@ -18,7 +18,6 @@ namespace FreeLoader
     // Class
     class ShipMovementTests
     {
-        // Constructor
         public class HandleMovement : TestsBase
         {
             private ShipMovement _sut;

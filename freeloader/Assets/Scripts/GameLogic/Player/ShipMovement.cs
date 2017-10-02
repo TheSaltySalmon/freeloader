@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FreeLoader.GameLogic.Player
 {
-    public class ShipMovement
+    public class ShipMovement : IShipMovement
     {
         public float movementSpeed = 2.8f;
         public float rotationSpeed = 1.8f;

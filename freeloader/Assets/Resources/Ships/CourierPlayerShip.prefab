@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 212913517359818136}
   - component: {fileID: 50987378031366852}
   - component: {fileID: 60497391049592130}
-  - component: {fileID: 114504698253184178}
+  - component: {fileID: 114171409492556982}
   m_Layer: 0
   m_Name: CourierPlayerShip
   m_TagString: Untagged
@@ -187,7 +187,7 @@ PolygonCollider2D:
       - {x: -0.25692877, y: -0.23179106}
       - {x: -0.0033362769, y: -0.18804443}
       - {x: 0.26665336, y: -0.23330657}
---- !u!114 &114504698253184178
+--- !u!114 &114171409492556982
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1229731995167528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 796f847b97a5e894fa728f081b3e23f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 35e0ab4b33274ae428c87bc8152587ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!198 &198161840414660130
