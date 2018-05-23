@@ -13,7 +13,7 @@ namespace FreeLoader.GameLogic.Player
         private Units.IFuel _fuel;
         private Units.IHealth _health;
         private IRigidbody2D _rigidBody;
-        private ShipMovement _playerShipMovement;
+        private IShipMovement _playerShipMovement;
         private Cameras.FollowingCamera _camera;
         private ParticleSystems.PlayerShipThrust _playerShipThrustParticles;
         private GameObject _gameObject;
