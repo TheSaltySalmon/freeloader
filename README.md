@@ -6,14 +6,7 @@ freeloader
 This is a game project, aiming to be a simple playable single player game made for mobile devices and other platforms developed in unity/c#.
 
 ## Technologies used
-#### Frontend
-- Unity version 2017.1.0f3
-
-#### Backend
-- node.js
-- typescript
-- websockets
-- restify
+- Unity version 2018.1.1f1
 
 ### Some kind of a story
 You are a a pilot mastering the forgotten art of delivering stuff to people. A mailman I suppose.
