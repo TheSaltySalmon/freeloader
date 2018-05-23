@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using FreeLoader.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ImpromptuInterface;
 
-namespace GameLogic.ParticleSystems
+namespace FreeLoader.GameLogic.ParticleSystems
 {
     public class PlayerShipThrust
     {
@@ -11,14 +13,14 @@ namespace GameLogic.ParticleSystems
         private const string RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME = "RightThrottleParticles";
         private const string LEFT_THROTTLE_PARTICLE_SYSTEM_NAME = "LeftThrottleParticles";
 
-        private ParticleSystem _mainThrottleParticleSys;
-        private ParticleSystem _leftThrottleParticleSys;
-        private ParticleSystem _rightThrottleParticleSys;
-        private Player.ShipMovement _playerShipMovement;
+        public IParticleSystem MainThrottleParticleSys;
+        public IParticleSystem LeftThrottleParticleSys;
+        public IParticleSystem RightThrottleParticleSys;
+        private Player.IShipMovement _playerShipMovement;
         private GameObject _playerShip;
 
 
-        public PlayerShipThrust(GameObject playerShip, Player.ShipMovement playerShipMovement)
+        public PlayerShipThrust(GameObject playerShip, Player.IShipMovement playerShipMovement)
         {
             _playerShipMovement = playerShipMovement;
             _playerShip = playerShip;
@@ -26,13 +28,34 @@ namespace GameLogic.ParticleSystems
             GetComponents();
         }
 
+        public void HandleShipThrottleParticleSystems()
+        {
+            // Main Throttle
+            PlayOrStopParticleSystemIfNeeded(
+                _playerShipMovement.IsPlayerAcceleratingShip,
+                MainThrottleParticleSys
+            );
+
+            // Right Throttle
+            PlayOrStopParticleSystemIfNeeded(
+                _playerShipMovement.IsPlayerRotatingShipLeft,
+                RightThrottleParticleSys
+            );
+
+            // Left Throttle
+            PlayOrStopParticleSystemIfNeeded(
+                _playerShipMovement.IsPlayerRotatingShipRight,
+                LeftThrottleParticleSys
+            );
+        }
+
         #region Private Methods
 
         private void GetComponents()
         {
-            _mainThrottleParticleSys = GetParticleSystemComponentByName(MAIN_THROTTLE_PARTICLE_SYSTEM_NAME);
-            _leftThrottleParticleSys = GetParticleSystemComponentByName(LEFT_THROTTLE_PARTICLE_SYSTEM_NAME);
-            _rightThrottleParticleSys = GetParticleSystemComponentByName(RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME);
+            MainThrottleParticleSys = GetParticleSystemComponentByName(MAIN_THROTTLE_PARTICLE_SYSTEM_NAME).ActLike<IParticleSystem>();
+            LeftThrottleParticleSys = GetParticleSystemComponentByName(LEFT_THROTTLE_PARTICLE_SYSTEM_NAME).ActLike<IParticleSystem>();
+            RightThrottleParticleSys = GetParticleSystemComponentByName(RIGHT_THROTTLE_PARTICLE_SYSTEM_NAME).ActLike<IParticleSystem>();
         }
 
         private ParticleSystem GetParticleSystemComponentByName(string particleSystemName)
@@ -47,28 +70,7 @@ namespace GameLogic.ParticleSystems
             return null;
         }
 
-        public void HandleShipThrottleParticleSystems()
-        {
-            // Main Throttle
-            PlayOrStopParticleSystemIfNeeded(
-                _playerShipMovement.IsPlayerCurrentlyAcceleratingShipByInput,
-                _mainThrottleParticleSys
-            );
-
-            // Right Throttle
-            PlayOrStopParticleSystemIfNeeded(
-                _playerShipMovement.IsPlayerCurrentlyRotationShipLeftByInput,
-                _rightThrottleParticleSys
-            );
-
-            // Left Throttle
-            PlayOrStopParticleSystemIfNeeded(
-                _playerShipMovement.IsPlayerCurrentlyRotationShipRightByInput,
-                _leftThrottleParticleSys
-            );
-        }
-
-        private void PlayOrStopParticleSystemIfNeeded(bool shouldPlay, ParticleSystem particleSystem)
+        private void PlayOrStopParticleSystemIfNeeded(bool shouldPlay, IParticleSystem particleSystem)
         {
             if (shouldPlay)
             {

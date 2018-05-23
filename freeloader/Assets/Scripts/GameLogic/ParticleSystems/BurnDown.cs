@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using FreeLoader.Components;
+using FreeLoader.Services;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameLogic.ParticleSystems
+namespace FreeLoader.GameLogic.ParticleSystems
 {
     public class BurnDown
     {
@@ -31,7 +33,7 @@ namespace GameLogic.ParticleSystems
 
         public void OnEvent(AvailableEvents activationEvent)
         {
-            SceneComponent.Events.StartListening(
+            Game.Services.EventManager.StartListening(
                 activationEvent,
                 new UnityAction<object>(StartBurning)
             );
@@ -52,7 +54,7 @@ namespace GameLogic.ParticleSystems
 
         private void LoadResourceAndSetup()
         {
-            _burningEffect = SceneComponent.ObjectPool.GetSingle(RESOURCE_BURNING_EFFECT);
+            _burningEffect = Game.Services.ObjectPool.GetSingle(RESOURCE_BURNING_EFFECT);
             _burningEffect.transform.parent = _transform;
             _burningEffect.transform.position = INITIAL_BURNING_EFFECT_POSITION;
 

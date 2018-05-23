@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-
-public interface IComponent
+namespace FreeLoader.Components
 {
-    Coroutine StartCoroutine(IEnumerator routine);
+    public interface IComponent
+    {
+        Coroutine StartCoroutine(IEnumerator routine);
+    }
 }

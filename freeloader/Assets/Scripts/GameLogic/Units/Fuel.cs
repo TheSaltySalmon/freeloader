@@ -1,16 +1,16 @@
-﻿using System;
+﻿using FreeLoader.Components;
+using FreeLoader.Services;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic.Units
+namespace FreeLoader.GameLogic.Units
 {
-    public class Fuel
+    public class Fuel : IFuel
     {
-
         private int _currentFuel;
         private float _fuelCombustionCounter;
-        private Rigidbody2D _rigidBody;
 
         public int MaxFuel = 100;
         public int StartingFuel = 50;
@@ -26,6 +26,11 @@ namespace GameLogic.Units
             set
             {
                 _currentFuel = (value > MaxFuel ? MaxFuel : value);
+
+                if (_currentFuel <= 0)
+                {
+                    TriggerOutOfFuelEvent();
+                }            
             }
         }
 
@@ -46,7 +51,6 @@ namespace GameLogic.Units
         public Fuel()
         {
             CurrentFuel = StartingFuel;
-
             TriggerFuelGainedEvent((int)StartingFuel);
         }
 
@@ -66,9 +70,17 @@ namespace GameLogic.Units
 
         #region Private methods
 
+        private void TriggerOutOfFuelEvent()
+        {
+            Game.Services.EventManager.TriggerEvent(
+                AvailableEvents.PLAYER_OUT_OF_FUEL,
+                null
+            );
+        }
+
         private void TriggerFuelGainedEvent(int fuelGained)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_GAINED_FUEL,
                 new EventDataModels.Fuel
                 {
@@ -82,7 +94,7 @@ namespace GameLogic.Units
 
         private void TriggerFuelLostEvent(int fuelLost)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_FUEL,
                 new EventDataModels.Fuel
                 {

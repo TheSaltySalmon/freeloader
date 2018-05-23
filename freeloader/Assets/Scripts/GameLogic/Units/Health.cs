@@ -1,16 +1,19 @@
-﻿using System.Collections;
+﻿using FreeLoader.Components;
+using FreeLoader.Services;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameLogic.Units
+namespace FreeLoader.GameLogic.Units
 {
-    public class Health
+    public class Health : IHealth
     {
-        private int _currentHealth;
-
         public int MaxHealth = 100; 
         public int StartingHealth = 100;
+        public float LostHealthCollisionFactor = 1.5f;
+
+        private int _currentHealth;
 
         #region properties
 
@@ -57,11 +60,9 @@ namespace GameLogic.Units
             TriggerHealthGainedEvent(StartingHealth);
         }
 
-        public void HandleCollisionHealthLoss(Collision2D collision)
+        public void HandleCollisionHealthLoss(float collisionVelocityMagnitude)
         {
-            var result = collision.relativeVelocity.magnitude;
-
-            var healthLost = (int)(result * result * 1.5);
+            var healthLost = (int)(collisionVelocityMagnitude * collisionVelocityMagnitude * LostHealthCollisionFactor);
 
             CurrentHealth -= healthLost;
 
@@ -74,7 +75,7 @@ namespace GameLogic.Units
 
         private void TriggerDiedEvent()
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_DIED,
                 null
             );
@@ -82,8 +83,8 @@ namespace GameLogic.Units
 
         private void TriggerHealthGainedEvent(int healthGained)
         {
-            SceneComponent.Events.TriggerEvent(
-                AvailableEvents.PLAYER_LOST_HEALTH,
+            Game.Services.EventManager.TriggerEvent(
+                AvailableEvents.PLAYER_GAINED_HEALTH,
                 new EventDataModels.Health
                 {
                     MaxHealth = MaxHealth,
@@ -96,7 +97,7 @@ namespace GameLogic.Units
 
         private void TriggerHealthLostEvent(int healthLost)
         {
-            SceneComponent.Events.TriggerEvent(
+            Game.Services.EventManager.TriggerEvent(
                 AvailableEvents.PLAYER_LOST_HEALTH,
                 new EventDataModels.Health
                 {

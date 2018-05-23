@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Linq;
+using FreeLoader.Components;
+using FreeLoader.Services;
 
-namespace GameLogic.UI
+namespace FreeLoader.GameLogic.UI
 {
     public class FuelBar
     {
-
         private const string RESOURCE_BAR = "UI/Bar";
         private readonly Color BAR_COLOR = new Color(0.5f, 0.5f, 0.9f);
         private readonly Vector2 START_POSITION = new Vector2(320, -50);
@@ -37,12 +38,12 @@ namespace GameLogic.UI
 
         private void AddEventListeners()
         {
-            SceneComponent.Events.StartListening(
+            Game.Services.EventManager.StartListening(
                 AvailableEvents.PLAYER_LOST_FUEL,
                 new UnityAction<object>(UpdateFuelBar)
             );
 
-            SceneComponent.Events.StartListening(
+            Game.Services.EventManager.StartListening(
                 AvailableEvents.PLAYER_GAINED_FUEL,
                 new UnityAction<object>(UpdateFuelBar)
             );
@@ -58,7 +59,7 @@ namespace GameLogic.UI
 
         private void LoadResourceAndSetup()
         {
-            _bar = SceneComponent.ObjectPool.GetSingle(RESOURCE_BAR);
+            _bar = Game.Services.ObjectPool.GetSingle(RESOURCE_BAR);
             _bar.SetActive(true);
             _slider = _bar.GetComponent<Slider>();
 

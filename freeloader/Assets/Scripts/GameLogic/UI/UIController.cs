@@ -1,9 +1,10 @@
-﻿using System;
+﻿using FreeLoader.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace GameLogic.UI
+namespace FreeLoader.GameLogic.UI
 {
     public class UIController
     {
@@ -11,7 +12,7 @@ namespace GameLogic.UI
         private FuelBar _fuelBar;
         private Canvas _canvas;
         private GameObject _gameObject;
-
+        
         public UIController(GameObject gameObject)
         {
             _gameObject = gameObject;
