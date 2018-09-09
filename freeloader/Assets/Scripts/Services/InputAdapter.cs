@@ -82,6 +82,13 @@ namespace FreeLoader.Services
             }
         }
 
+        public bool IsFiring
+        {
+            get {
+                return Input.GetKey(KeyCode.LeftControl);
+            }
+        }
+
         #endregion
     }
 }
