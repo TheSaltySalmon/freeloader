@@ -31,7 +31,7 @@ namespace FreeLoader
             [SetUp]
             protected void BeforeEach()
             {
-                _sut = new PlayerActions();
+                //_sut = new PlayerActions();
             }
 
             [Test]

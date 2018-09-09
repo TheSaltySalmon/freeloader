@@ -14,11 +14,6 @@ namespace FreeLoader.GameLogic.Weapons
                 return 200;
             }
         }
-        public int Damage {
-            get {
-                return 2;
-            }
-        }
 
         public PlasmaCannon(Transform transform)
         {
