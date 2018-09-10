@@ -9,6 +9,7 @@ namespace FreeLoader.GameLogic.Weapons
 {
     public class PlasmaCannon : IWeapon {
         private Transform _transform;
+
         public int ReloadTime {
             get {
                 return 200;
@@ -21,7 +22,14 @@ namespace FreeLoader.GameLogic.Weapons
         }
 
         public void Fire() {
-            
+            var projectile = Game.Services.ObjectPool.GetSingle("Projectiles/PlasmaShot");
+
+            projectile.transform.SetPositionAndRotation(
+                _transform.position,
+                _transform.rotation
+            );
+
+            projectile.SetActive(true);
         }
     }
 }

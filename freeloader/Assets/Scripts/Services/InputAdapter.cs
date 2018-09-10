@@ -85,7 +85,7 @@ namespace FreeLoader.Services
         public bool IsFiring
         {
             get {
-                return Input.GetKey(KeyCode.LeftControl);
+                return Input.GetKeyDown(KeyCode.LeftShift);
             }
         }
 
