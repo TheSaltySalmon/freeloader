@@ -12,7 +12,6 @@ namespace FreeLoader.GameLogic.Projectiles
     public class PlasmaShot : IProjectile {
         private GameObject _gameObject;
         private IRigidbody2D _rigidBody;
-
         private int speed = 200;
         public int Damage {
             get { return 2; }
@@ -22,23 +21,38 @@ namespace FreeLoader.GameLogic.Projectiles
         {
             _gameObject = gameObject;
             GetComponents();
-            // _projectile = Game.Services.ObjectPool.GetSingle("Projectiles/PlasmaShot");
-            
-            // _projectile.transform.SetPositionAndRotation(
-            //     weaponTransForm.position,
-            //     weaponTransForm.rotation
-            // );
+            FaceForward();
+        }
 
-            _rigidBody.AddForce(gameObject.transform.up * speed);
+        public void HandleFire(Transform weaponTransform) {
+            
+            _gameObject.transform.SetPositionAndRotation(
+                weaponTransform.position + weaponTransform.up / 2,
+                weaponTransform.rotation
+            );
+            _gameObject.SetActive(true);
+            _rigidBody.AddForce(_gameObject.transform.up * speed);
         }
 
         public void HandleFixedUpdate() {
-            _gameObject.transform.rotation = Quaternion.LookRotation(_rigidBody.velocity) * Quaternion.Euler(90, 0, 0);   
+            FaceForward();   
+        }
+
+        public void HandleCollision(Collision2D collision){
+            Debug.Log("Collision!");
+            _gameObject.SetActive(false); 
+            _rigidBody.velocity = Vector3.zero;
+            _rigidBody.angularVelocity = 0;
+            _gameObject.transform.rotation = Quaternion.Euler(Vector3.zero); 
         }
 
         private void GetComponents()
         {
             _rigidBody = _gameObject.GetComponent<Rigidbody2D>().ActLike<IRigidbody2D>();
+        }
+
+        private void FaceForward() {
+            _gameObject.transform.rotation = Quaternion.LookRotation(_rigidBody.velocity) * Quaternion.Euler(-90, 0, 0);   
         }
     }
 }

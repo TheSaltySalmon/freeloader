@@ -7,21 +7,25 @@ using FreeLoader.Attributes;
 namespace FreeLoader.Components
 {
     [ScriptExecutionOrder(-80)]
-    public class PlasmaShotComponent : ComponentBase
+    public class PlasmaShotComponent : ComponentBase, IProjectileComponent
     {
         private IProjectile _plasmaShot;
 
-        public void Start()
+        public void Awake()
         {
             _plasmaShot = new PlasmaShot(gameObject);
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        public void OnCollisionEnter2D(Collision2D collision)
         {
+            _plasmaShot.HandleCollision(collision);
+        }
 
+        public void Fire(Transform weaponTransform) {
+            _plasmaShot.HandleFire(weaponTransform);
         }
         
-        void FixedUpdate() {
+        public void FixedUpdate() {
             _plasmaShot.HandleFixedUpdate();
         }
     }

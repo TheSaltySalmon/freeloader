@@ -1,5 +1,6 @@
 using FreeLoader.Components;
 using FreeLoader.Services;
+using FreeLoader.GameLogic.Projectiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,14 +23,8 @@ namespace FreeLoader.GameLogic.Weapons
         }
 
         public void Fire() {
-            var projectile = Game.Services.ObjectPool.GetSingle("Projectiles/PlasmaShot");
-
-            projectile.transform.SetPositionAndRotation(
-                _transform.position,
-                _transform.rotation
-            );
-
-            projectile.SetActive(true);
+            Game.Services.ObjectPool.GetSingle("Projectiles/PlasmaShot")
+                .GetComponent<PlasmaShotComponent>().Fire(_transform);
         }
     }
 }

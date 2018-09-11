@@ -10,6 +10,7 @@ namespace FreeLoader.Components
     public class PlayerComponent : ComponentBase
     {
         private PlayerController _playerController;
+        public Vector3 forward; 
 
         public PlayerController PlayerController
         {
