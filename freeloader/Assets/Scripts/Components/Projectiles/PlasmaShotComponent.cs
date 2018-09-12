@@ -25,6 +25,10 @@ namespace FreeLoader.Components
             _plasmaShot.HandleFire(weaponTransform);
         }
         
+        void Update() {
+            _plasmaShot.HandleUpdate();
+        }
+
         public void FixedUpdate() {
             _plasmaShot.HandleFixedUpdate();
         }

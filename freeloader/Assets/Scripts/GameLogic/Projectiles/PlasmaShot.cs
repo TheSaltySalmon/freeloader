@@ -21,7 +21,6 @@ namespace FreeLoader.GameLogic.Projectiles
         {
             _gameObject = gameObject;
             GetComponents();
-            FaceForward();
         }
 
         public void HandleFire(Transform weaponTransform) {
@@ -35,11 +34,13 @@ namespace FreeLoader.GameLogic.Projectiles
         }
 
         public void HandleFixedUpdate() {
-            FaceForward();   
+        }
+
+        public void HandleUpdate() {
+            FaceForward();
         }
 
         public void HandleCollision(Collision2D collision){
-            Debug.Log("Collision!");
             _gameObject.SetActive(false); 
             _rigidBody.velocity = Vector3.zero;
             _rigidBody.angularVelocity = 0;
@@ -52,7 +53,11 @@ namespace FreeLoader.GameLogic.Projectiles
         }
 
         private void FaceForward() {
-            _gameObject.transform.rotation = Quaternion.LookRotation(_rigidBody.velocity) * Quaternion.Euler(-90, 0, 0);   
+            var direction = _rigidBody.velocity;
+            if (direction != Vector2.zero) {
+                var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                _gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward) * Quaternion.Euler(0, 0, 90);
+            } 
         }
     }
 }

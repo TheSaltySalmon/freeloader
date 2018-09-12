@@ -9,5 +9,6 @@ namespace FreeLoader.GameLogic.Projectiles
         void HandleFixedUpdate();
         void HandleCollision(Collision2D collision);
         void HandleFire(Transform weaponTransform);
+        void HandleUpdate();
     }
 }
