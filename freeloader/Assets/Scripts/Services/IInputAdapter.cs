@@ -3,6 +3,7 @@ namespace FreeLoader.Services
 {
     public interface IInputAdapter
     {
+        // Movement
         bool IsAccelerating { get; }
         bool IsDeAccelerating { get; }
         bool IsRotating { get; }
@@ -10,5 +11,8 @@ namespace FreeLoader.Services
         bool IsRotatingRight { get; }
         float HorizontalAxis { get; }
         float VerticalAxis { get; }
+
+        // Actions
+        bool IsFiring { get; }
     }
 }

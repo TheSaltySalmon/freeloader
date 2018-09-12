@@ -13,6 +13,8 @@ namespace FreeLoader.GameLogic.Player
         private Units.IFuel _fuel;
         private Units.IHealth _health;
         private IRigidbody2D _rigidBody;
+        private IShipConfiguration _playerShipConfiguration;
+        private IPlayerActions _playerActions;
         private IShipMovement _playerShipMovement;
         private Cameras.FollowingCamera _camera;
         private ParticleSystems.PlayerShipThrust _playerShipThrustParticles;
@@ -42,6 +44,10 @@ namespace FreeLoader.GameLogic.Player
         // Fixed Update is called once per frame
         public void HandleFixedUpdate()
         {
+            _playerActions.HandleActions(
+                Game.Services.InputAdapter
+            );
+
             _playerShipMovement.HandleMovement(
                 Game.Services.InputAdapter.HorizontalAxis,
                 Game.Services.InputAdapter.VerticalAxis
@@ -67,6 +73,8 @@ namespace FreeLoader.GameLogic.Player
             _fuel = new Units.Fuel();
 
             _playerShipMovement = new ShipMovement(_gameObject.transform, _rigidBody, _health, _fuel);
+            _playerShipConfiguration = new ShipConfiguration(_gameObject.transform);
+            _playerActions = new PlayerActions(_playerShipConfiguration);
             _playerShipThrustParticles = new ParticleSystems.PlayerShipThrust(_gameObject, _playerShipMovement);
             _camera = new Cameras.FollowingCamera(_gameObject);
 

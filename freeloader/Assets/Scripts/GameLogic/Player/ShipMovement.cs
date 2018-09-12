@@ -10,7 +10,7 @@ namespace FreeLoader.GameLogic.Player
         public float movementSpeed = 2.8f;
         public float rotationSpeed = 1.8f;
         public bool isShipRotationUpgraded = false;
-
+        
         private IRigidbody2D _rigidBody;
         private Units.IHealth _health;
         private Units.IFuel _fuel;

@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace FreeLoader.GameLogic.Player
 {
     public interface IShipMovement
